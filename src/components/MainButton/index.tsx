@@ -8,8 +8,7 @@ interface IMainButtonProps {
   onPress: () => void
 }
 
-export const MainButton: FC<IMainButtonProps> = memo(({style, text, onPress}) => {
-  return (
+export const MainButton: FC<IMainButtonProps> = memo(({style, text, onPress}) => (
     <button
       style={{
         backgroundColor: COLORS.BACKGROUND_NIGHT,
@@ -23,7 +22,6 @@ export const MainButton: FC<IMainButtonProps> = memo(({style, text, onPress}) =>
     >
       {text}
     </button>
-  )
-})
+  ))
 
 MainButton.displayName = 'MainButton';

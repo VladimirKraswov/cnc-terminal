@@ -20,6 +20,7 @@ function convertEnding(ending: string) {
 }
 
 async function handleConnect(port: string, baud: string, ending: string): Promise<boolean> {
+  // eslint-disable-next-line no-param-reassign
   ending = convertEnding(ending)
   invoke("set_port_items", {port, baud, ending});
   const isConnected = await invoke("handle_serial_connect", {});

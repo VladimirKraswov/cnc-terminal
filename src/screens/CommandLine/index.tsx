@@ -1,6 +1,4 @@
-import { useEffect, useRef } from "react";
-
-import { MainMenu, PortConnector, TerminalArea } from "../../components";
+import { PortConnector, TerminalArea } from "../../components";
 import { COLORS } from "../../theme/colors";
 import { useSerial } from "../../providers/SerialProvider";
 
@@ -15,7 +13,6 @@ export const CommandLine = () => {
         flexDirection: 'column',
         backgroundColor: COLORS.BACKGROUND_MAIN,
       }}>
-        <MainMenu />
         <PortConnector />
           <TerminalArea
             style={{

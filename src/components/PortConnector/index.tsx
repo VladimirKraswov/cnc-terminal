@@ -1,14 +1,16 @@
 import { useCallback, useState } from "react";
 
-import {Select, MenuItem, SelectProps} from "@mui/material";
+import {Select, MenuItem} from "@mui/material";
 import { useSerial } from "../../providers/SerialProvider";
 import { getEnding } from "../../utils/serial";
-import { MainButton } from "..";
+import { MainButton } from "../MainButton";
+import { Text } from "../Text";
 import { COLORS } from "../../theme/colors";
+
 
 export const PortConnector = () => {
   const {isConnected, ports, connect, getPorts } = useSerial();
-  const [selectPort, setSelectPort] = useState<string>('Selected port')
+  const [selectPort, setSelectPort] = useState<string | null>(null)
 
   const handleChangePort =  useCallback((event: any) => {
     setSelectPort(event.target.value);
@@ -35,8 +37,12 @@ export const PortConnector = () => {
           backgroundColor: COLORS.BACKGROUND_SECONDARY,
           fontSize: 24,
         }}
+        displayEmpty
         value={selectPort}
         onChange={handleChangePort}
+        renderValue={
+          selectPort ? undefined : () => <Text style={{ fontSize: 24 }} value={'Select serial port'}/>
+        }
       >
         {ports.map((port) => <MenuItem key={port} value={port}>{port}</MenuItem>)}
       </Select>
