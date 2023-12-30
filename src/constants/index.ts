@@ -1,0 +1,1 @@
+export const REFRESH_PORTS_INTERVAL = 5000;

@@ -1,0 +1,13 @@
+export const COLORS = {
+  RICH_RED_ORANGE: '#ffb961',
+  PASTEL_YELLOW: '#efa94a',
+  GOLD: '#FFD700',
+
+  BACKGROUND_MAIN: '#2f2f2f',
+  BACKGROUND_SECONDARY: '#0f0f0f69',
+  BACKGROUND_NIGHT: '#0f0f0f98',
+
+  FONT_MAIN: '#FFFAFA',
+
+  SUCCESS: '#32CD32',
+};
