@@ -12,6 +12,7 @@ interface ISerialContext {
   getPorts: () => string[]
   connect: (port: string, baud: string, ending: string) => boolean
   send: (command: string) => void
+  clear: () => void
 }
 
 type Payload = {
@@ -61,6 +62,10 @@ const SerialProvider: FC<any> = ({ children }) => {
     handleSend(cmd);
   }, []);
 
+  const clear = useCallback(() => {
+    setPortResponse('')
+  }, []);
+
   const value = useMemo(
     () => ({
       isConnected,
@@ -69,8 +74,9 @@ const SerialProvider: FC<any> = ({ children }) => {
       getPorts,
       connect,
       send,
+      clear,
     }),
-    [isConnected, ports, portResponse, getPorts, connect, send],
+    [isConnected, ports, portResponse, getPorts, connect, send, clear],
   );
 
   useEffect(() => {

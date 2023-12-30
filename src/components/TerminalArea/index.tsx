@@ -12,7 +12,7 @@ interface ITerminalAreaProps {
 export const TerminalArea: FC<ITerminalAreaProps> = memo(({ style, value }) => {
   const [command, setCommand] = useState('');
 
-  const {send} = useSerial()
+  const {send, clear} = useSerial()
 
   const handleReturn = () => {
     send(command);
@@ -56,6 +56,7 @@ export const TerminalArea: FC<ITerminalAreaProps> = memo(({ style, value }) => {
           placeholder="Enter a command..."    
         />
         <MainButton text="Return"  onPress={handleReturn}/>
+        <MainButton text="Clear"  onPress={clear}/>
       </div>
     </div>
   )
