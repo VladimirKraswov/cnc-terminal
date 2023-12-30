@@ -14,12 +14,12 @@ export const CommandLine = () => {
         backgroundColor: COLORS.BACKGROUND_MAIN,
       }}>
         <PortConnector />
-          <TerminalArea
-            style={{
-              flex: 1,
-            }}
-            value={portResponse}
-          />
+        <TerminalArea
+          style={{
+            flex: 1,
+          }}
+          value={portResponse}
+        />
     </div>
   );
 }

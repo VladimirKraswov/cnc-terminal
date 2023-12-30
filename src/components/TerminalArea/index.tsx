@@ -1,4 +1,4 @@
-import { FC, memo, useState } from "react";
+import { FC, memo, useEffect, useRef, useState } from "react";
 
 import { COLORS } from "../../theme/colors";
 import { useSerial } from "../../providers/SerialProvider";
@@ -10,6 +10,7 @@ interface ITerminalAreaProps {
 }
 
 export const TerminalArea: FC<ITerminalAreaProps> = memo(({ style, value }) => {
+  const areaRef = useRef<HTMLTextAreaElement | null>(null)
   const [command, setCommand] = useState('');
 
   const {send, clear} = useSerial()
@@ -18,6 +19,10 @@ export const TerminalArea: FC<ITerminalAreaProps> = memo(({ style, value }) => {
     send(command);
     setCommand('');
   }
+
+  useEffect(() => {
+    areaRef?.current?.scroll({ left: 0, top: areaRef?.current?.scrollHeight });
+  }, [value])
 
   return (
     <div style={{
@@ -28,6 +33,7 @@ export const TerminalArea: FC<ITerminalAreaProps> = memo(({ style, value }) => {
       ...style,
     }}>
       <textarea
+        ref={areaRef}
         style={{
           display:'flex',
           flex: 1,

@@ -36,6 +36,7 @@ export const PortConnector = () => {
           color: COLORS.FONT_MAIN,
           backgroundColor: COLORS.BACKGROUND_SECONDARY,
           fontSize: 24,
+          fontFamily: 'Consolas, monaco, monospace',
         }}
         displayEmpty
         value={selectPort}
@@ -44,7 +45,7 @@ export const PortConnector = () => {
           selectPort ? undefined : () => <Text style={{ fontSize: 24 }} value={'Select serial port'}/>
         }
       >
-        {ports.map((port) => <MenuItem key={port} value={port}>{port}</MenuItem>)}
+        {ports.map((port) => <MenuItem style={{ fontFamily: 'Consolas, monaco, monospace', }} key={port} value={port}>{port}</MenuItem>)}
       </Select>
       <MainButton text="Refresh"  onPress={getPorts}/>
       <MainButton
