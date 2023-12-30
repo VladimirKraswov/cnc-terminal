@@ -43,7 +43,7 @@ export const PortConnector = () => {
       <MainButton text="Refresh"  onPress={getPorts}/>
       <MainButton
         style={{
-          color: isConnected ? COLORS.BACKGROUND_MAIN : COLORS.FONT_MAIN,
+          color: isConnected ? COLORS.BACKGROUND_MAIN : COLORS.RICH_RED_ORANGE,
           backgroundColor: isConnected ? COLORS.SUCCESS : COLORS.BACKGROUND_SECONDARY, 
         }}
         text="Connect"

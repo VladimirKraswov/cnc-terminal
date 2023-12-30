@@ -1,7 +1,44 @@
+#root {
+  width: 100vw; /* Растягиваем на всю ширину экрана */
+  height: 100vh; /* Растягиваем на всю высоту экрана */
+  padding: 0;
+  margin: 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
 body {
   background-color: #2f2f2f;
+  padding: 0;
+  margin: 0;
 }
 
 div {
   display: flex; /* or inline-flex */
+}
+
+a:link {
+  color: green;
+  background-color: transparent;
+  text-decoration: none;
+}
+
+a:visited {
+  color: pink;
+  background-color: transparent;
+  text-decoration: none;
+}
+
+a:hover {
+  color: red;
+  background-color: transparent;
+  text-decoration: underline;
+}
+
+a:active {
+  color: yellow;
+  background-color: transparent;
+  text-decoration: underline;
 }
