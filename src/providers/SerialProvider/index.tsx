@@ -1,6 +1,6 @@
-import { createContext, useCallback, useContext, useState, useMemo, FC, useEffect } from 'react';
+import { createContext, useCallback, useContext, useState, useMemo, FC, useEffect, useRef } from 'react';
 
-import { listen } from "@tauri-apps/api/event";
+import { UnlistenFn, listen } from "@tauri-apps/api/event";
 
 import { getEnding, handleConnect, handleGetPorts, handleSend } from '../../utils/serial';
 import { REFRESH_PORTS_INTERVAL } from '../../constants';
@@ -28,8 +28,10 @@ const SerialProvider: FC<any> = ({ children }) => {
   const [ports, setPorts] = useState<string[]>([]);
   const [isConnected, setIsConnected] = useState(false)
   const [portResponse, setPortResponse] = useState<string>('');
+  const updateSerialListener = useRef<UnlistenFn | null>(null);
 
   const startSerialEventListener = useCallback(async () => {
+    updateSerialListener?.current?.();
     await listen<Payload>("updateSerial", (event: SerialEvent) => {
       setPortResponse((prev) => `${prev}${event.payload.message}`)
     });
@@ -41,16 +43,16 @@ const SerialProvider: FC<any> = ({ children }) => {
   }, [])
 
   const connect = useCallback(async (port: string, baud = '115200', ending = getEnding()[1]) => {
-    if (port) {
-      try {
-        const res = await handleConnect(port, baud, ending)
-        setIsConnected(res);
+    try {
+      const res = await handleConnect(port, baud, ending)
+      setIsConnected(res);
+      if(res) {
         await startSerialEventListener();
         return true
-      } catch (error) {
-        return false
       }
-    } else {
+      return false
+    } catch (error) {
+      setIsConnected(false);
       return false
     }
   }, [startSerialEventListener])
