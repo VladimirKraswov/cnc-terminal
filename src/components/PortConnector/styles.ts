@@ -1,6 +1,8 @@
 import { COLORS } from "../../theme/colors";
 
-export const styles: any = {
+import { TStyles } from "../../types";
+
+export const styles: TStyles = {
   container: {
     width: '100%'
   },
@@ -8,7 +10,7 @@ export const styles: any = {
     flex: 1,
     color: COLORS.FONT_MAIN,
     backgroundColor: COLORS.BACKGROUND_SECONDARY,
-    fontSize: 24,
+    fontSize: '24px',
     fontFamily: 'Consolas, monaco, monospace',
   }
 }

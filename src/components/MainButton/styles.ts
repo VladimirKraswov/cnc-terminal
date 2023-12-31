@@ -1,13 +1,15 @@
 import { COLORS } from "../../theme/colors";
 
-export const styles: any = {
+import { TStyles } from "../../types";
+
+export const styles: TStyles = {
   container: {
     backgroundColor:  COLORS.CHOCOLATE,
     color: COLORS.FONT_MAIN,
     borderColor: COLORS.FONT_MAIN,
     fontFamily: 'Consolas, monaco, monospace',
-    fontSize: 18,
-    borderRadius: 8,
-    padding: 10,
+    fontSize: '18px',
+    borderRadius: '10px',
+    padding: '1rem',
   },
 }

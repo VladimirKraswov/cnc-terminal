@@ -1,8 +1,9 @@
 import { COLORS } from "../../theme/colors";
 
-export const styles: any = {
+import { TStyles } from "../../types";
+
+export const styles: TStyles = {
   container: {
-    display: 'flex',
     flex: 1,
     flexDirection: 'column',
     backgroundColor: COLORS.BACKGROUND_SECONDARY,
@@ -11,17 +12,16 @@ export const styles: any = {
     display:'flex',
     flex: 1,
     fontFamily: 'Consolas, monaco, monospace',
-    fontSize: 16,
+    fontSize: '16px',
     color: COLORS.GOLD,
     backgroundColor: COLORS.BACKGROUND_SECONDARY,
   },
   inputCommand: {
-    display: 'flex',
   },
   input: {
     flex: 1,
-    height: 56,
-    fontSize: 24,
+    height: '4rem',
+    fontSize: '24px',
     color: COLORS.FONT_MAIN,
     backgroundColor: COLORS.BACKGROUND_SECONDARY,
     fontFamily: 'Consolas, monaco, monospace',
