@@ -7,6 +7,7 @@
 
 * {
   box-sizing: border-box;
+  font-family: "Consolas, monaco, monospace";
 }
 
 body {
@@ -41,4 +42,9 @@ a:active {
   color: yellow;
   background-color: transparent;
   text-decoration: underline;
+}
+
+ul {
+  padding: 0;
+  list-style-type: none;
 }

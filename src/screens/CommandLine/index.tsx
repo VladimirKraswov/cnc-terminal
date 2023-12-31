@@ -9,8 +9,8 @@ export const CommandLine = () => {
 
   return (
     <div style={styles.container}>
-        <PortConnector />
-        <TerminalArea style={styles.terminalAreaContainer} value={portResponse} />
+      <PortConnector />
+      <TerminalArea style={styles.terminalAreaContainer} value={portResponse} />
     </div>
   );
 }
