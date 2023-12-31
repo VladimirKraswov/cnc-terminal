@@ -5,12 +5,19 @@ import { UnlistenFn, listen } from "@tauri-apps/api/event";
 import { getEnding, handleConnect, handleGetPorts, handleSend } from '../../utils/serial';
 import { REFRESH_PORTS_INTERVAL } from '../../constants';
 
+
+interface IPortParameters {
+  port: string
+  baud: string 
+  ending: string
+}
 interface ISerialContext {
   isConnected: boolean
   ports: string[]
   portResponse: string
   getPorts: () => string[]
   connect: (port: string, baud: string, ending: string) => boolean
+  disconnect: () => void
   send: (command: string) => void
   clear: () => void
 }
@@ -30,9 +37,11 @@ const SerialProvider: FC<any> = ({ children }) => {
   const [isConnected, setIsConnected] = useState(false)
   const [portResponse, setPortResponse] = useState<string>('');
   const updateSerialListener = useRef<UnlistenFn | null>(null);
+  const [currentPortParameters, setCurrentPortParameters] = useState<IPortParameters | null>(null)
 
   const startSerialEventListener = useCallback(async () => {
     updateSerialListener?.current?.();
+    setPortResponse('')
     await listen<Payload>("updateSerial", (event: SerialEvent) => {
       setPortResponse((prev) => `${prev}${event.payload.message}`)
     });
@@ -49,14 +58,22 @@ const SerialProvider: FC<any> = ({ children }) => {
       setIsConnected(res);
       if(res) {
         await startSerialEventListener();
+        setCurrentPortParameters({port, baud, ending});
         return true
       }
       return false
     } catch (error) {
       setIsConnected(false);
+      setCurrentPortParameters(null);
       return false
     }
   }, [startSerialEventListener])
+
+  const disconnect = useCallback(() => {
+    setIsConnected(false);
+    setCurrentPortParameters(null);
+    updateSerialListener?.current?.();
+  }, [])
 
   const send = useCallback((cmd: string) => {
     handleSend(cmd);
@@ -73,6 +90,7 @@ const SerialProvider: FC<any> = ({ children }) => {
       portResponse,
       getPorts,
       connect,
+      disconnect,
       send,
       clear,
     }),
@@ -86,6 +104,12 @@ const SerialProvider: FC<any> = ({ children }) => {
     }, REFRESH_PORTS_INTERVAL)
     /* eslint-disable-next-line */
   }, [])
+
+  useEffect(() => {
+    if(!ports.find((p) => p === currentPortParameters?.port)) {
+      disconnect();
+    }
+  }, [ports])
 
   return (
     /* @ts-ignore */

@@ -2,7 +2,7 @@ import { FC, memo, useEffect, useRef, useState } from "react";
 
 import { COLORS } from "../../theme/colors";
 import { useSerial } from "../../providers/SerialProvider";
-import { MainButton } from "..";
+import { MainButton } from "../MainButton";
 
 interface ITerminalAreaProps {
   style?: any
@@ -19,9 +19,9 @@ export const TerminalArea: FC<ITerminalAreaProps> = memo(({ style, value }) => {
     send(command);
     setCommand('');
   }
-
+  
   useEffect(() => {
-    areaRef?.current?.scroll({ left: 0, top: areaRef?.current?.scrollHeight });
+    areaRef?.current?.scroll({ top: areaRef?.current?.scrollHeight })
   }, [value])
 
   return (

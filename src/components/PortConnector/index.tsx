@@ -9,8 +9,9 @@ import { COLORS } from "../../theme/colors";
 
 
 export const PortConnector = () => {
-  const {isConnected, ports, connect, getPorts } = useSerial();
   const [selectPort, setSelectPort] = useState<string | null>(null)
+
+  const {isConnected, ports, connect, disconnect, getPorts } = useSerial();
 
   const handleChangePort =  useCallback((event: any) => {
     setSelectPort(event.target.value);
@@ -22,11 +23,6 @@ export const PortConnector = () => {
     }
   }, [selectPort, connect]);
 
-  const handleDisconnect = useCallback(async () => {
-    if (selectPort) {
-      await connect('null', '0', '')
-    }
-  }, [selectPort, connect]);
 
   return (
     <div style={{ width: '100%' }}>
@@ -56,7 +52,7 @@ export const PortConnector = () => {
         text="Connect"
         onPress={handleConnect}
       />
-      <MainButton text="Disconnect"  onPress={handleDisconnect}/>
+      <MainButton text="Disconnect"  onPress={disconnect}/>
     </div>
 
   )
