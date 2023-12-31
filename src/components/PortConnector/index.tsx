@@ -6,6 +6,7 @@ import { getEnding } from "../../utils/serial";
 import { MainButton } from "../MainButton";
 import { Text } from "../Text";
 import { COLORS } from "../../theme/colors";
+import { styles } from "./styles";
 
 
 export const PortConnector = () => {
@@ -25,15 +26,9 @@ export const PortConnector = () => {
 
 
   return (
-    <div style={{ width: '100%' }}>
+    <div style={styles.container}>
       <Select
-        style={{
-          flex: 1,
-          color: COLORS.FONT_MAIN,
-          backgroundColor: COLORS.BACKGROUND_SECONDARY,
-          fontSize: 24,
-          fontFamily: 'Consolas, monaco, monospace',
-        }}
+        style={styles.selectContainer}
         displayEmpty
         value={selectPort}
         onChange={handleChangePort}

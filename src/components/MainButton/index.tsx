@@ -1,7 +1,6 @@
 import {FC, memo} from "react";
 
-import {COLORS} from "../../theme/colors";
-
+import  {styles} from './styles'
 interface IMainButtonProps {
   style?: any
   text: string
@@ -10,16 +9,7 @@ interface IMainButtonProps {
 
 export const MainButton: FC<IMainButtonProps> = memo(({style, text, onPress}) => (
     <button
-      style={{
-        backgroundColor:  COLORS.CHOCOLATE,
-        color: COLORS.FONT_MAIN,
-        borderColor: COLORS.FONT_MAIN,
-        fontFamily: 'Consolas, monaco, monospace',
-        fontSize: 18,
-        borderRadius: 8,
-        padding: 10,
-        ...style,
-      }}
+      style={{ ...styles.container, ...style }}
       onClick={onPress}
     >
       {text}

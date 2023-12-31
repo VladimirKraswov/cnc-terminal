@@ -2,13 +2,12 @@ import { COLORS } from "../../theme/colors";
 
 export const styles: any = {
   container: {
-    width: '100%'
-  },
-  selectContainer: {
-    flex: 1,
+    backgroundColor:  COLORS.CHOCOLATE,
     color: COLORS.FONT_MAIN,
-    backgroundColor: COLORS.BACKGROUND_SECONDARY,
-    fontSize: 24,
+    borderColor: COLORS.FONT_MAIN,
     fontFamily: 'Consolas, monaco, monospace',
-  }
+    fontSize: 18,
+    borderRadius: 8,
+    padding: 10,
+  },
 }
