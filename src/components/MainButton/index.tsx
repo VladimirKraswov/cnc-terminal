@@ -11,11 +11,13 @@ interface IMainButtonProps {
 export const MainButton: FC<IMainButtonProps> = memo(({style, text, onPress}) => (
     <button
       style={{
-        backgroundColor: COLORS.BACKGROUND_NIGHT,
-        color: COLORS.RICH_RED_ORANGE,
+        backgroundColor:  COLORS.CHOCOLATE,
+        color: COLORS.FONT_MAIN,
+        borderColor: COLORS.FONT_MAIN,
         fontFamily: 'Consolas, monaco, monospace',
         fontSize: 18,
-        borderColor: COLORS.BACKGROUND_SECONDARY,
+        borderRadius: 8,
+        padding: 10,
         ...style,
       }}
       onClick={onPress}

@@ -1,6 +1,8 @@
 export const COLORS = {
   RICH_RED_ORANGE: '#ffb961',
+  DARK_ORANGE: '#FF8C00',
   PASTEL_YELLOW: '#efa94a',
+  CHOCOLATE: '#D2691E',
   GOLD: '#FFD700',
 
   BACKGROUND_MAIN: '#2f2f2f',
