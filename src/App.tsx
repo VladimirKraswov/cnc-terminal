@@ -1,20 +1,18 @@
 import { SerialProvider } from "./providers/SerialProvider"
-import { CommandLine } from "./screens";
+
+import { StoreProvider } from "./providers/StoreProvider";
+
+import { BasicTabs } from "./components";
 
 import './App.css';
-import { JogBlock, MainMenu, RealtimeCommandsBlock } from "./components";
-import { Route, Routes } from "react-router-dom";
 
-const App = () => 
+const App = () =>
+<StoreProvider>
   <SerialProvider>
-    <MainMenu style={{ position: 'absolute' }}>
-      <div style={{ width: '1024px', height: '600px' }}>
-        <CommandLine />
-        <JogBlock />
-        <RealtimeCommandsBlock />
-      </div>
-    </MainMenu>
+    <BasicTabs/>
   </SerialProvider>
+</StoreProvider>
+
   
 
 export default App;

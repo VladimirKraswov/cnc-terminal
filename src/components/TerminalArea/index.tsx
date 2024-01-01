@@ -4,17 +4,15 @@ import { useSerial } from "../../providers/SerialProvider";
 import { MainButton } from "../MainButton";
 
 import { styles } from './styles'
+import { Box } from "@mui/system";
 
-interface ITerminalAreaProps {
-  style?: any
-  value: string
-}
+interface ITerminalAreaProps {}
 
-export const TerminalArea: FC<ITerminalAreaProps> = memo(({ style, value }) => {
+export const TerminalArea: FC<ITerminalAreaProps> = memo(() => {
   const areaRef = useRef<HTMLTextAreaElement | null>(null)
   const [command, setCommand] = useState('');
 
-  const {send, clear} = useSerial()
+  const {send, clear, portResponse} = useSerial()
 
   const handleReturn = () => {
     send(command);
@@ -23,17 +21,17 @@ export const TerminalArea: FC<ITerminalAreaProps> = memo(({ style, value }) => {
   
   useEffect(() => {
     areaRef?.current?.scroll({ top: areaRef?.current?.scrollHeight })
-  }, [value])
+  }, [portResponse])
 
   return (
-    <div style={{ ...styles.container, ...style}}>
+    <Box style={styles.container}>
       <textarea
-        ref={areaRef}
         style={styles.textArea}
-        value={value}
+        ref={areaRef}
+        value={portResponse}
         readOnly
       />
-      <div style={styles.inputCommand}>
+      <Box style={styles.inputCommand}>
         <input
           style={styles.input}
           value={command}
@@ -42,8 +40,8 @@ export const TerminalArea: FC<ITerminalAreaProps> = memo(({ style, value }) => {
         />
         <MainButton text="Return"  onPress={handleReturn}/>
         <MainButton text="Clear"  onPress={clear}/>
-      </div>
-    </div>
+      </Box>
+    </Box>
   )
 });
 

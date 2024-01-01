@@ -3,7 +3,7 @@ import {FC, memo, useCallback} from "react";
 import  {styles} from './styles'
 import { MainButton } from "../..";
 import { useSerial } from "../../../providers/SerialProvider";
-import { REALTIME_COMMANDS } from "../../../constants/realTimeCommands";
+import { REALTIME_COMMANDS } from "../../../constants/realtimeCommands";
 interface IMainButtonProps {
   style?: any
 }
