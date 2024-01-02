@@ -4,7 +4,7 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 
-import { CommandLine, GRBLSettings } from '../../pages';
+import { CommandLine, Control, GRBLSettings } from '../../pages';
 import { styles } from './styles';
 
 interface TabPanelProps {
@@ -60,13 +60,17 @@ export const BasicTabs = () => {
           }}
         >
           <Tab style={styles.tabButton} label="Command Line" {...a11yProps(0)} />
-          <Tab style={styles.tabButton} label="GRBL Settings" {...a11yProps(1)} />
+          <Tab style={styles.tabButton} label="Control" {...a11yProps(1)} />
+          <Tab style={styles.tabButton} label="GRBL Settings" {...a11yProps(2)} />
         </Tabs>
       </Box>
       <CustomTabPanel value={currentTab} index={0}>
         <CommandLine/>
       </CustomTabPanel>
       <CustomTabPanel value={currentTab} index={1}>
+        <Control />
+      </CustomTabPanel>
+      <CustomTabPanel value={currentTab} index={2}>
         <GRBLSettings />
       </CustomTabPanel>
     </Box>

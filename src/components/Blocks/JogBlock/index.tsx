@@ -1,9 +1,11 @@
-import {FC, memo, useCallback} from "react";
+import {FC, memo, useCallback, useState} from "react";
 
 import  {styles} from './styles'
-import { MainButton } from "../..";
+import { MainButton, NumberInput } from "../..";
 import { useSerial } from "../../../providers/SerialProvider";
 import { REALTIME_COMMANDS } from "../../../constants/realtimeCommands";
+import { GCODE } from "../../../constants/gcode";
+import { SYSTEM_COMMANDS } from "../../../constants/systemCommands";
 interface IMainButtonProps {
   style?: any
 }
@@ -13,45 +15,44 @@ const FEED = 2000
 
 
 export const JogBlock: FC<IMainButtonProps> = memo(({style}) => {
+  const [steep, setSteep] = useState<number>(STEP)
+  const [feed, setFeed] = useState<number>(FEED)
+
   const {send} = useSerial()
 
-  const handleJogAddY = useCallback(() => {
-    send(`$J=Y${STEP} F${FEED}`);
-  }, [])
-
-  const handleJogSubY = useCallback(() => {
-    send(`$J=Y${-STEP} F${FEED}`);
-  }, [])
-
-  const handleJogAddX = useCallback(() => {
-    send(`$J=X${STEP} F${FEED}`);
-  }, [])
-
-  const handleJogSubX = useCallback(() => {
-    send(`$J=X${-STEP} F${FEED}`);
-  }, [])
-
-  const handleJogAddZ = useCallback(() => {
-    send(`$J=Z${STEP} F${FEED}`);
-  }, [])
-
-  const handleJogSubZ = useCallback(() => {
-    send(`$J=Z${-STEP} F${FEED}`);
-  }, [])
-
-  const handleStop = useCallback(() => {
-    send(REALTIME_COMMANDS.CANCEL_JOG);
+  const handleControlRun = useCallback((axis: string, step: number) => () => {
+    send(GCODE.INCREMENT_MODE)
+    send(`$J=${axis}${step} F${feed}`);
   }, [])
 
   return (
     <div style={{ ...styles.container, ...style }}>
-      <MainButton text="Y+" onPress={handleJogAddY}/>
-      <MainButton text="Y-" onPress={handleJogSubY}/>
-      <MainButton text="X+" onPress={handleJogAddX}/>
-      <MainButton text="X-" onPress={handleJogSubX}/>
-      <MainButton text="Z+" onPress={handleJogAddZ}/>
-      <MainButton text="Z-" onPress={handleJogSubZ}/>
-      <MainButton text="Stop" onPress={handleStop}/>
+        <NumberInput
+          label="Шаг"
+          // min={-1000}
+          // max={1000}
+          shiftMultiplier={5} 
+          step={1}
+          value={steep}
+          onChange={(_, value) => setSteep(value as number)}
+        />
+        <NumberInput
+          label="Скорость"
+          // min={-1000}
+          // max={1000}
+          shiftMultiplier={5} 
+          step={1}
+          value={feed}
+          onChange={(_, value) => setFeed(value as number)}
+        />
+      <MainButton text="Y+" onPress={handleControlRun('Y', steep)}/>
+      <MainButton text="Y-" onPress={handleControlRun('Y', -steep)}/>
+      <MainButton text="X+" onPress={handleControlRun('X', steep)}/>
+      <MainButton text="X-" onPress={handleControlRun('X', -steep)}/>
+      <MainButton text="Z+" onPress={handleControlRun('Z', steep)}/>
+      <MainButton text="Z-" onPress={handleControlRun('Z', -steep)}/>
+      <MainButton text="Stop" onPress={() => send(REALTIME_COMMANDS.CANCEL_JOG)}/>
+      <MainButton text="Unlock" onPress={() => send(SYSTEM_COMMANDS.KILL_ALARM_BLOCK)}/>
     </div>
   )})
 
