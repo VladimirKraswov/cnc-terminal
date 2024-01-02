@@ -6,7 +6,7 @@ import { styles } from "./styles";
 export const CommandLine = () => {
 
   return (
-    <Box style={styles.container} bgcolor={'red'}>
+    <Box style={styles.container}>
       <PortConnector />
       <TerminalArea/>
     </Box>
