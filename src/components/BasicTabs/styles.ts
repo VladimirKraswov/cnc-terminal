@@ -16,6 +16,6 @@ export const styles: TStyles = {
     height: "92vh",
   },
   tabIndicator: {
-    backgroundColor: COLORS.GOLD,
+    backgroundColor: COLORS.PRIMARY,
   }
 }

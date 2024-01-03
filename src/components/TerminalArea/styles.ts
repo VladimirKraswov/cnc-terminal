@@ -13,7 +13,7 @@ export const styles: TStyles = {
     flex: 1,
     fontFamily: 'Consolas, monaco, monospace',
     fontSize: '16px',
-    color: COLORS.GOLD,
+    color: COLORS.PRIMARY,
     backgroundColor: COLORS.BACKGROUND_SECONDARY,
   },
   inputCommand: {

@@ -7,7 +7,7 @@ import { TStyles } from "../../types";
 
 export const styles: TStyles = {
   container: {
-    backgroundColor:  COLORS.CHOCOLATE,
+    backgroundColor:  COLORS.PRIMARY,
     color: COLORS.FONT_MAIN,
     borderColor: COLORS.FONT_MAIN,
     fontFamily: 'Consolas, monaco, monospace',
@@ -83,7 +83,7 @@ export const StyledButton = styled('button')(
   box-sizing: border-box;
   background: ${COLORS.BACKGROUND_SECONDARY};
   border: 0;
-  color: ${COLORS.CHOCOLATE};
+  color: ${COLORS.PRIMARY};
   transition-property: all;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 120ms;
@@ -101,8 +101,8 @@ export const StyledButton = styled('button')(
     border-top-right-radius: 4px;
     border: 1px solid;
     border-bottom: 0;
-    border-color: ${COLORS.GOLD};
-    background: ${COLORS.GOLD};
+    border-color: ${COLORS.PRIMARY};
+    background: ${COLORS.PRIMARY};
     color: ${COLORS.BACKGROUND_SECONDARY};
 
     &:hover {
@@ -119,8 +119,8 @@ export const StyledButton = styled('button')(
     border-bottom-left-radius: 4px;
     border-bottom-right-radius: 4px;
     border: 1px solid;
-    border-color: ${COLORS.GOLD};
-    background: ${COLORS.GOLD};
+    border-color: ${COLORS.PRIMARY};
+    background: ${COLORS.PRIMARY};
     color: ${COLORS.BACKGROUND_SECONDARY};
   }
 

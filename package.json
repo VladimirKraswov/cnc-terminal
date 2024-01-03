@@ -18,7 +18,9 @@
     "@mui/system": "^5.15.3",
     "@szhsin/react-menu": "^4.1.0",
     "@tauri-apps/api": "^1.5.2",
-    "react": "^18.2.0"
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-svg": "^16.1.32"
   },
   "devDependencies": {
     "@tauri-apps/cli": "^1.5.8",
