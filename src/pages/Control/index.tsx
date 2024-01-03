@@ -1,21 +1,13 @@
-import { useEffect, useState } from "react";
-
 import { Box } from "@mui/system";
 
-import {  JogBlock, MainButton, NumberInput, Text } from "../../components";
+import {  JogBlock, Text } from "../../components";
+
+import { useSerial } from "../../providers/SerialProvider";
 
 import { styles } from "./styles";
-import { useSerial } from "../../providers/SerialProvider";
-import { IOption } from "./types";
-import { SETTINGS } from "./constants";
-import { GCODE } from "../../constants/gcode";
 
 export const Control = () => {
- const {isConnected, send, portResponse, clear } = useSerial();
-
-  useEffect(() => {
-   
-  }, [])
+ const {isConnected } = useSerial();
 
   if (!isConnected) {
     return (

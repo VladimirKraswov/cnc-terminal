@@ -1,14 +1,12 @@
 import { FC, memo, useEffect, useRef, useState } from "react";
 
+import { Box } from "@mui/system";
 import { useSerial } from "../../providers/SerialProvider";
 import { MainButton } from "../MainButton";
 
 import { styles } from './styles'
-import { Box } from "@mui/system";
 
-interface ITerminalAreaProps {}
-
-export const TerminalArea: FC<ITerminalAreaProps> = memo(() => {
+export const TerminalArea: FC = memo(() => {
   const areaRef = useRef<HTMLTextAreaElement | null>(null)
   const [command, setCommand] = useState('');
 

@@ -2,7 +2,7 @@ import {FC, memo, useCallback} from "react";
 
 import { MainButton } from "../..";
 import { useSerial } from "../../../providers/SerialProvider";
-import { REALTIME_COMMANDS } from "../../../constants/realTimeCommands";
+import { REALTIME_COMMANDS } from "../../../constants/realtimeCommands";
 import { SYSTEM_COMMANDS } from "../../../constants/systemCommands";
 
 import  {styles} from './styles'
@@ -16,23 +16,23 @@ export const RealtimeCommandsBlock: FC<IMainButtonProps> = memo(({style}) => {
 
   const handleSoftReset = useCallback(() => {
     send(REALTIME_COMMANDS.SOFT_RESET);
-  }, [])
+  }, [send])
 
   const handleKillAlarmBlock = useCallback(() => {
     send(SYSTEM_COMMANDS.KILL_ALARM_BLOCK);
-  }, [])
+  }, [send])
 
   const handleErasesAndRestores = useCallback(() => {
     send(SYSTEM_COMMANDS.ERASES_AND_RESTORES);
-  }, [])
+  }, [send])
 
   const handleErasesAndZerosAllCoordinate  = useCallback(() => {
     send(SYSTEM_COMMANDS.ERASES_AND_ZEROS_ALL_COORDINATE);
-  }, [])
+  }, [send])
 
   const handleClearsAndRestoresAll = useCallback(() => {
     send(SYSTEM_COMMANDS.CLEARS_AND_RESTORES_ALL);
-  }, [])
+  }, [send])
 
   return (
     <div style={{ ...styles.container, ...style }}>

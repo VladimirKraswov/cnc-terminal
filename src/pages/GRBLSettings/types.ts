@@ -3,4 +3,5 @@ export interface IOption {
   label: string
   value: number
   draft?: boolean
+  description?: string
 }

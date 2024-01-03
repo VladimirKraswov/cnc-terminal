@@ -1,6 +1,7 @@
 import {FC, memo} from "react";
 
 import  {styles} from './styles'
+
 interface IMainButtonProps {
   style?: any
   text: string

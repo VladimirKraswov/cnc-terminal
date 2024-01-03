@@ -94,7 +94,7 @@ const SerialProvider: FC<any> = ({ children }) => {
       send,
       clear,
     }),
-    [isConnected, ports, portResponse, getPorts, connect, send, clear],
+    [isConnected, ports, portResponse, getPorts, connect, disconnect, send, clear],
   );
 
   useEffect(() => {
@@ -109,6 +109,7 @@ const SerialProvider: FC<any> = ({ children }) => {
     if(!ports.find((p) => p === currentPortParameters?.port)) {
       disconnect();
     }
+    // es-lind-disabled-next-line
   }, [ports])
 
   return (
