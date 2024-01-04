@@ -15,7 +15,7 @@ export const TerminalArea: FC = memo(() => {
   const {send, portResponse, clear, run} = useSerial()
 
   const handleReturn = () => {
-    // clear()
+
     // run(g)
     send(command);
     setCommand('');
