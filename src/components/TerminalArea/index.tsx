@@ -9,15 +9,17 @@ import { styles } from './styles'
 export const TerminalArea: FC = memo(() => {
   const areaRef = useRef<HTMLTextAreaElement | null>(null)
   const [command, setCommand] = useState('');
+  const [terminal, setTerminal] = useState('')
 
-  const {send, clear, portResponse} = useSerial()
+  const {send, portResponse} = useSerial()
 
-  const handleReturn = () => {
+  const handleReturn = () => { 
     send(command);
     setCommand('');
   }
   
   useEffect(() => {
+    setTerminal((prev) => `${prev}${portResponse}`)
     areaRef?.current?.scroll({ top: areaRef?.current?.scrollHeight })
   }, [portResponse])
 
@@ -26,7 +28,7 @@ export const TerminalArea: FC = memo(() => {
       <textarea
         style={styles.textArea}
         ref={areaRef}
-        value={portResponse}
+        value={terminal}
         readOnly
       />
       <Box style={styles.inputCommand}>
@@ -37,7 +39,7 @@ export const TerminalArea: FC = memo(() => {
           placeholder="Enter a command..."    
         />
         <MainButton text="Return"  onPress={handleReturn}/>
-        <MainButton text="Clear"  onPress={clear}/>
+        <MainButton text="Clear"  onPress={() => setTerminal('')}/>
       </Box>
     </Box>
   )

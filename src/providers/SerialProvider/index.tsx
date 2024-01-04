@@ -43,7 +43,7 @@ const SerialProvider: FC<any> = ({ children }) => {
     updateSerialListener?.current?.();
     setPortResponse('')
     await listen<Payload>("updateSerial", (event: SerialEvent) => {
-      setPortResponse((prev) => `${prev}${event.payload.message}`)
+      setPortResponse(event.payload.message)
     });
   }, []);
 
@@ -82,6 +82,10 @@ const SerialProvider: FC<any> = ({ children }) => {
   const clear = useCallback(() => {
     setPortResponse('')
   }, []);
+
+  // const run = (gcode: string) => {
+  //   conse
+  // }
 
   const value = useMemo(
     () => ({

@@ -6,4 +6,7 @@ export const styles: TStyles = {
     flexDirection: 'column',
     backgroundColor: COLORS.BACKGROUND_SECONDARY,
   },
+  separator: {
+    marginLeft: '5px',
+  }
 }

@@ -77,12 +77,12 @@ export const JogBlock: FC<IMainButtonProps> = memo(({style}) => {
       <Box mt={2} flexDirection="row">
         <ImageButton src={UnlockIcon} hint="Unlock/Reset alarm" onPress={() => send(SYSTEM_COMMANDS.KILL_ALARM_BLOCK)} />
           
-        <ImageButton style={{ marginLeft: 5 }} src={XYZeroIcon} hint="Zero axis XY" onPress={() => send(`${GCODE.ZERO_AXIS} X0 Y0`)}/>
+        <ImageButton style={styles.separator} src={XYZeroIcon} hint="Zero axis XY" onPress={() => send(`${GCODE.ZERO_AXIS} X0 Y0`)}/>
         {/* <ImageButton style={{ marginLeft: 5 }} src={UnlockIcon} onPress={() => send(`${GCODE.ZERO_AXIS} Z0`)}/> */}
         {/*<ImageButton src={UnlockIcon} onPress={() => send(`${GCODE.ZERO_AXIS} X0 Y0 Z0`)}/> */}
-        <ImageButton style={{ marginLeft: 5 }} src={HomeIcon} hint="Home"  onPress={() => send(SYSTEM_COMMANDS.HOME)}/>
-        <ImageButton style={{ marginLeft: 5 }} src={LaserOnIcon} hint="Laser ON"  onPress={handleLaserOn}/>
-        <ImageButton style={{ marginLeft: 5 }} src={LaserOffIcon} hint="Laser OFF"   onPress={handleLaserOff}/>
+        <ImageButton style={styles.separator} src={HomeIcon} hint="Home"  onPress={() => send(SYSTEM_COMMANDS.HOME)}/>
+        <ImageButton style={styles.separator} src={LaserOnIcon} hint="Laser ON"  onPress={handleLaserOn}/>
+        <ImageButton style={styles.separator} src={LaserOffIcon} hint="Laser OFF"   onPress={handleLaserOff}/>
       </Box>
 
       <Box mt={1} width={266} height={1256}>
@@ -96,18 +96,6 @@ export const JogBlock: FC<IMainButtonProps> = memo(({style}) => {
         <ImageButton style={{position: 'relative', top: 0, left: -28 }} src={ZAddIcon} onPress={handleControlRun('Z', steep)} />
         <ImageButton style={{position: 'relative', top: 104, left: -76 }}  src={ZSubIcon} onPress={handleControlRun('Z', -steep)} />
       </Box>
-     
-
-      {/*
-
-
-      
-      {/* Zero axis */}
-      {/* Home */}
-      {/* <ImageButton src={HomeIcon} onPress={() => send(SYSTEM_COMMANDS.HOME)}/> */}
-      {/* Laser/Spindle */}
-      {/* <ImageButton src={LaserOnIcon} onPress={handleLaserOn}/>
-      <ImageButton src={LaserOffIcon}  onPress={handleLaserOff}/> */}
     </Box>
   )})
 
