@@ -21,8 +21,9 @@ export const NumberInput = forwardRef<HTMLDivElement, INumberInputProps>(({label
           overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap'
         }} variant="caption" value={label}/>
       )}
-      <Box width="100%" alignItems="center">
+      <Box  >
         <BaseNumberInput
+          style={{ width: '100%' }}
           slots={{
             root: StyledInputRoot,
             input: StyledInputElement,

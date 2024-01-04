@@ -13,7 +13,7 @@ export const COLORS = {
   BORDER_MOUSE_MOVE: '#FFD700',
   BORDER_FOCUS: '#efa94a',
 
-  PRIMARY: '#FFD700',
+  PRIMARY: '#FFBC1E',
   SECONDARY: '',
 
   FONT_MAIN: '#FFFAFA',

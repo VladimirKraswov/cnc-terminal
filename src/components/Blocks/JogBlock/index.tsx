@@ -1,11 +1,14 @@
 import {FC, memo, useCallback, useState} from "react";
 
 import  {styles} from './styles'
-import { MainButton, NumberInput } from "../..";
+import { ImageButton, MainButton, NumberInput } from "../..";
 import { useSerial } from "../../../providers/SerialProvider";
 import { REALTIME_COMMANDS } from "../../../constants/realtimeCommands";
 import { GCODE } from "../../../constants/gcode";
 import { SYSTEM_COMMANDS } from "../../../constants/systemCommands";
+import { HomeIcon, LaserOffIcon, LaserOnIcon, StopIcon, UnlockIcon, XAddIcon, XSubIcon, XYZeroIcon, YAddIcon, YSubIcon, ZAddIcon, ZSubIcon } from "../../../assets/images";
+import { Box } from "@mui/system";
+import Tooltip from '@mui/material/Tooltip';
 
 interface IMainButtonProps {
   style?: any
@@ -39,53 +42,73 @@ export const JogBlock: FC<IMainButtonProps> = memo(({style}) => {
   }, [send])
 
   return (
-    <div style={{ ...styles.container, ...style }}>
-        <NumberInput
-          label="Шаг"
-          // min={-1000}
-          // max={1000}
-          shiftMultiplier={5} 
-          step={1}
-          value={steep}
-          onChange={(_, value) => setSteep(value as number)}
-        />
-        <NumberInput
-          label="Скорость"
-          // min={-1000}
-          // max={1000}
-          shiftMultiplier={5} 
-          step={1}
-          value={feed}
-          onChange={(_, value) => setFeed(value as number)}
-        />
-        <NumberInput
-          label="Мощность лазера"
-          // min={-1000}
-          // max={1000}
-          shiftMultiplier={5} 
-          step={1}
-          value={laserPower}
-          onChange={(_, value) => setLaserPower(value as number)}
-        />
+    <Box style={{ ...styles.container, ...style }}>
+        <Box flex={1} flexDirection="column">
+          <NumberInput
+            label="Шаг"
+            // min={-1000}
+            // max={1000}
+            shiftMultiplier={5} 
+            step={1}
+            value={steep}
+            onChange={(_, value) => setSteep(value as number)}
+          />
+          <NumberInput
+            label="Скорость"
+            // min={-1000}
+            // max={1000}
+            shiftMultiplier={5} 
+            step={1}
+            value={feed}
+            onChange={(_, value) => setFeed(value as number)}
+          />
+          <NumberInput
+            label="Мощность лазера"
+            // min={-1000}
+            // max={1000}
+            shiftMultiplier={5} 
+            step={1}
+            value={laserPower}
+            onChange={(_, value) => setLaserPower(value as number)}
+          />
+        </Box>
       {/* Jog */}
-      <MainButton text="Y+" onPress={handleControlRun('Y', steep)}/>
-      <MainButton text="Y-" onPress={handleControlRun('Y', -steep)}/>
-      <MainButton text="X+" onPress={handleControlRun('X', steep)}/>
-      <MainButton text="X-" onPress={handleControlRun('X', -steep)}/>
-      <MainButton text="Z+" onPress={handleControlRun('Z', steep)}/>
-      <MainButton text="Z-" onPress={handleControlRun('Z', -steep)}/>
-      <MainButton text="Stop" onPress={() => send(REALTIME_COMMANDS.CANCEL_JOG)}/>
-      <MainButton text="Unlock" onPress={() => send(SYSTEM_COMMANDS.KILL_ALARM_BLOCK)}/>
+
+      <Box mt={2} flexDirection="row">
+        <ImageButton src={UnlockIcon} hint="Unlock/Reset alarm" onPress={() => send(SYSTEM_COMMANDS.KILL_ALARM_BLOCK)} />
+          
+        <ImageButton style={{ marginLeft: 5 }} src={XYZeroIcon} hint="Zero axis XY" onPress={() => send(`${GCODE.ZERO_AXIS} X0 Y0`)}/>
+        {/* <ImageButton style={{ marginLeft: 5 }} src={UnlockIcon} onPress={() => send(`${GCODE.ZERO_AXIS} Z0`)}/> */}
+        {/*<ImageButton src={UnlockIcon} onPress={() => send(`${GCODE.ZERO_AXIS} X0 Y0 Z0`)}/> */}
+        <ImageButton style={{ marginLeft: 5 }} src={HomeIcon} hint="Home"  onPress={() => send(SYSTEM_COMMANDS.HOME)}/>
+        <ImageButton style={{ marginLeft: 5 }} src={LaserOnIcon} hint="Laser ON"  onPress={handleLaserOn}/>
+        <ImageButton style={{ marginLeft: 5 }} src={LaserOffIcon} hint="Laser OFF"   onPress={handleLaserOff}/>
+      </Box>
+
+      <Box mt={1} width={266} height={1256}>
+        <ImageButton style={{position: 'relative', top: 0, left: 48}} src={YAddIcon} onPress={handleControlRun('Y', steep)} />
+        <ImageButton style={{position: 'relative', top: 52, }}src={StopIcon} hint="Stop"  onPress={() => send(REALTIME_COMMANDS.CANCEL_JOG)} />
+        <ImageButton style={{position: 'relative', top: 104, left: -48}} src={YSubIcon} onPress={handleControlRun('Y', -steep)} />
+
+        <ImageButton style={{position: 'relative', top: 52, left: -44 }} src={XAddIcon} onPress={handleControlRun('X', steep)} />
+        <ImageButton style={{position: 'relative', top: 52, left: -(196) }} src={XSubIcon} onPress={handleControlRun('X', -steep)} />
+
+        <ImageButton style={{position: 'relative', top: 0, left: -28 }} src={ZAddIcon} onPress={handleControlRun('Z', steep)} />
+        <ImageButton style={{position: 'relative', top: 104, left: -76 }}  src={ZSubIcon} onPress={handleControlRun('Z', -steep)} />
+      </Box>
+     
+
+      {/*
+
+
+      
       {/* Zero axis */}
-      <MainButton text="Zero XY" onPress={() => send(`${GCODE.ZERO_AXIS} X0 Y0`)}/>
-      <MainButton text="Zero Z" onPress={() => send(`${GCODE.ZERO_AXIS} Z0`)}/>
-      <MainButton text="Zero All" onPress={() => send(`${GCODE.ZERO_AXIS} X0 Y0 Z0`)}/>
       {/* Home */}
-      <MainButton text="Home" onPress={() => send(SYSTEM_COMMANDS.HOME)}/>
+      {/* <ImageButton src={HomeIcon} onPress={() => send(SYSTEM_COMMANDS.HOME)}/> */}
       {/* Laser/Spindle */}
-      <MainButton text="Laser ON" onPress={handleLaserOn}/>
-      <MainButton text="Laser OFF" onPress={handleLaserOff}/>
-    </div>
+      {/* <ImageButton src={LaserOnIcon} onPress={handleLaserOn}/>
+      <ImageButton src={LaserOffIcon}  onPress={handleLaserOff}/> */}
+    </Box>
   )})
 
   JogBlock.displayName = 'JogBlock';
