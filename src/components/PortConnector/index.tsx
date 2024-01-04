@@ -1,15 +1,17 @@
 import { useCallback, useState } from "react";
 
 import {Select, MenuItem} from "@mui/material";
+import { Box } from "@mui/system";
+
 import { useSerial } from "../../providers/SerialProvider";
 import { getEnding } from "../../utils/serial";
-import { MainButton } from "../MainButton";
+
 import { Text } from "../Text";
-import { COLORS } from "../../theme/colors";
-import { styles } from "./styles";
-import { ImageButton } from "..";
+import { ImageButton } from "../ImageButton";
+
 import { ConnectIcon, DisconnectIcon, RefreshIcon } from "../../assets/images";
-import { Box } from "@mui/system";
+
+import { styles } from "./styles";
 
 
 export const PortConnector = () => {
@@ -22,8 +24,14 @@ export const PortConnector = () => {
   }, []) 
 
   const handleConnect = useCallback(async () => {
-    if (selectPort) {
-    await connect(selectPort, '115200', getEnding()[1])
+    if(!selectPort) {
+      return
+    }
+
+    if (isConnected) {
+      disconnect()
+    } else {
+      await connect(selectPort, '115200', getEnding()[1])
     }
   }, [selectPort, connect]);
 
@@ -41,23 +49,10 @@ export const PortConnector = () => {
       >
         {ports.map((port) => <MenuItem style={{ fontFamily: 'Consolas, monaco, monospace', }} key={port} value={port}>{port}</MenuItem>)}
       </Select>
-      {/* <MainButton text="Refresh"  onPress={getPorts}/>
-      <MainButton
-        style={{
-          backgroundColor: isConnected ? COLORS.SUCCESS : COLORS.PRIMARY, 
-        }}
-        text="Connect"
-        onPress={handleConnect}
-      />
-      <MainButton text="Disconnect"  onPress={disconnect}/> */}
       <Box width={5} />
       <ImageButton src={RefreshIcon} hint="" onPress={getPorts} />
       <Box width={5} />
-      {isConnected ? (
-        <ImageButton src={DisconnectIcon} hint="" onPress={disconnect} />
-      ) : (
-        <ImageButton src={ConnectIcon} hint="" onPress={handleConnect} />
-      )}
+      <ImageButton src={isConnected ? DisconnectIcon : ConnectIcon} hint="" onPress={handleConnect} />
       <Box width={5} />
 
     </div>

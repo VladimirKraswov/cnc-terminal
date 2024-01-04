@@ -12,7 +12,7 @@ export const TerminalArea: FC = memo(() => {
   const [command, setCommand] = useState('');
   const [terminal, setTerminal] = useState('')
 
-  const {send, portResponse, clear, run} = useSerial()
+  const {send, portResponse, isConnected, clear, run} = useSerial()
 
   const handleReturn = () => {
 
@@ -42,9 +42,9 @@ export const TerminalArea: FC = memo(() => {
           placeholder="Enter a command..."    
         />
         <Box width={5} />
-        <ImageButton src={ReturnIcon} hint="" onPress={handleReturn} />
+        <ImageButton src={ReturnIcon} hint="" isDisabled={!isConnected} onPress={handleReturn} />
         <Box width={5} />
-        <ImageButton src={ClearIcon} hint="" onPress={() => setTerminal('')} />
+        <ImageButton src={ClearIcon} hint="" isDisabled={!isConnected} onPress={() => setTerminal('')} />
       </Box>
     </Box>
   )
