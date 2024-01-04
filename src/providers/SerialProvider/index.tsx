@@ -5,6 +5,9 @@ import { UnlistenFn, listen } from "@tauri-apps/api/event";
 import { getEnding, handleConnect, handleGetPorts, handleSend } from '../../utils/serial';
 import { REFRESH_PORTS_INTERVAL } from '../../constants';
 
+const wait = (time: number) => new Promise((res) => {
+  setTimeout(() => res(true), time)
+})
 
 interface IPortParameters {
   port: string
@@ -20,6 +23,7 @@ interface ISerialContext {
   disconnect: () => void
   send: (command: string) => void
   clear: () => void
+  run: (gcode: string) => void
 }
 
 type Payload = {
@@ -83,9 +87,15 @@ const SerialProvider: FC<any> = ({ children }) => {
     setPortResponse('')
   }, []);
 
-  // const run = (gcode: string) => {
-  //   conse
-  // }
+  const run = useCallback(async (gcode: string) => {
+    const lines = gcode.split('\n');
+    for (let i = 0; i < lines.length; i++) {
+      if (portResponse === 'ok' || portResponse === '') {
+        send(lines[i])
+        await wait(2000);
+      }
+    }
+  }, [portResponse, send])
 
   const value = useMemo(
     () => ({
@@ -97,8 +107,9 @@ const SerialProvider: FC<any> = ({ children }) => {
       disconnect,
       send,
       clear,
+      run,
     }),
-    [isConnected, ports, portResponse, getPorts, connect, disconnect, send, clear],
+    [isConnected, ports, portResponse, getPorts, connect, disconnect, send, clear, run],
   );
 
   useEffect(() => {

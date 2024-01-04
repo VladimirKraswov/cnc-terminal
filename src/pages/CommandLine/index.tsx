@@ -6,6 +6,7 @@ import { styles } from "./styles";
 export const CommandLine = () => (
     <Box style={styles.container}>
       <PortConnector />
+      <Box height={5}/>
       <TerminalArea/>
     </Box>
   )

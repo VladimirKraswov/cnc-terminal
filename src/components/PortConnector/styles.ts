@@ -4,13 +4,14 @@ import { TStyles } from "../../types";
 
 export const styles: TStyles = {
   container: {
-    width: '100%'
+    width: '100%',
+    height: '50px',
   },
   selectContainer: {
-    flex: 1,
+    width: '100%',
     color: COLORS.FONT_MAIN,
     backgroundColor: COLORS.BACKGROUND_SECONDARY,
-    fontSize: '24px',
+    fontSize: '14px',
     fontFamily: 'Consolas, monaco, monospace',
   }
 }

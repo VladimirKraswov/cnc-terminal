@@ -7,6 +7,9 @@ import { MainButton } from "../MainButton";
 import { Text } from "../Text";
 import { COLORS } from "../../theme/colors";
 import { styles } from "./styles";
+import { ImageButton } from "..";
+import { ConnectIcon, DisconnectIcon, RefreshIcon } from "../../assets/images";
+import { Box } from "@mui/system";
 
 
 export const PortConnector = () => {
@@ -38,7 +41,7 @@ export const PortConnector = () => {
       >
         {ports.map((port) => <MenuItem style={{ fontFamily: 'Consolas, monaco, monospace', }} key={port} value={port}>{port}</MenuItem>)}
       </Select>
-      <MainButton text="Refresh"  onPress={getPorts}/>
+      {/* <MainButton text="Refresh"  onPress={getPorts}/>
       <MainButton
         style={{
           backgroundColor: isConnected ? COLORS.SUCCESS : COLORS.PRIMARY, 
@@ -46,7 +49,17 @@ export const PortConnector = () => {
         text="Connect"
         onPress={handleConnect}
       />
-      <MainButton text="Disconnect"  onPress={disconnect}/>
+      <MainButton text="Disconnect"  onPress={disconnect}/> */}
+      <Box width={5} />
+      <ImageButton src={RefreshIcon} hint="" onPress={getPorts} />
+      <Box width={5} />
+      {isConnected ? (
+        <ImageButton src={DisconnectIcon} hint="" onPress={disconnect} />
+      ) : (
+        <ImageButton src={ConnectIcon} hint="" onPress={handleConnect} />
+      )}
+      <Box width={5} />
+
     </div>
 
   )

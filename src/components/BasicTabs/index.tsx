@@ -25,11 +25,9 @@ function CustomTabPanel(props: TabPanelProps) {
       aria-labelledby={`simple-tab-${index}`}
       {...other}
     >
-      {value === index && (
-        <Box flex={1} height={"100%"} sx={{ p: 1 }}>
-          {children}
-        </Box>
-      )}
+      <Box display={value === index ? 'flex' : 'none'} flex={1} height={"100%"} sx={{ p: 1 }}>
+        {children}
+      </Box>
     </div>
   );
 }

@@ -1,14 +1,13 @@
 import {FC, memo, useCallback, useState} from "react";
 
 import  {styles} from './styles'
-import { ImageButton, MainButton, NumberInput } from "../..";
+import { ImageButton, NumberInput } from "../..";
 import { useSerial } from "../../../providers/SerialProvider";
 import { REALTIME_COMMANDS } from "../../../constants/realtimeCommands";
 import { GCODE } from "../../../constants/gcode";
 import { SYSTEM_COMMANDS } from "../../../constants/systemCommands";
 import { HomeIcon, LaserOffIcon, LaserOnIcon, StopIcon, UnlockIcon, XAddIcon, XSubIcon, XYZeroIcon, YAddIcon, YSubIcon, ZAddIcon, ZSubIcon } from "../../../assets/images";
 import { Box } from "@mui/system";
-import Tooltip from '@mui/material/Tooltip';
 
 interface IMainButtonProps {
   style?: any
@@ -23,6 +22,7 @@ export const JogBlock: FC<IMainButtonProps> = memo(({style}) => {
   const [steep, setSteep] = useState<number>(STEP)
   const [feed, setFeed] = useState<number>(FEED)
   const [laserPower, setLaserPower] = useState<number>(LASER_POWER)
+  const [isLaserOn, setIsLaserOn] = useState(false)
 
   const {send} = useSerial()
 
@@ -31,15 +31,19 @@ export const JogBlock: FC<IMainButtonProps> = memo(({style}) => {
     send(`$J=${axis}${step} F${feed}`);
   }, [feed, send])
 
-  const handleLaserOn = useCallback(() => {
-    send(`G0 M3 S${laserPower}`)
-    send('G1 F1')
-  }, [laserPower, send])
+  const handleLaserOnOff = useCallback(() => {
+    setIsLaserOn((prev) => {
+      if (prev) {
+        send('S0')
+        send('G0 F0')
+      } else {
+        send(`G0 M3 S${laserPower}`)
+        send('G1 F1')
+      }
 
-  const handleLaserOff = useCallback(() => {
-    send('S0')
-    send('G0 F0')
-  }, [send])
+      return !prev;
+    })
+  }, [laserPower, send])
 
   return (
     <Box style={{ ...styles.container, ...style }}>
@@ -81,8 +85,12 @@ export const JogBlock: FC<IMainButtonProps> = memo(({style}) => {
         {/* <ImageButton style={{ marginLeft: 5 }} src={UnlockIcon} onPress={() => send(`${GCODE.ZERO_AXIS} Z0`)}/> */}
         {/*<ImageButton src={UnlockIcon} onPress={() => send(`${GCODE.ZERO_AXIS} X0 Y0 Z0`)}/> */}
         <ImageButton style={styles.separator} src={HomeIcon} hint="Home"  onPress={() => send(SYSTEM_COMMANDS.HOME)}/>
-        <ImageButton style={styles.separator} src={LaserOnIcon} hint="Laser ON"  onPress={handleLaserOn}/>
-        <ImageButton style={styles.separator} src={LaserOffIcon} hint="Laser OFF"   onPress={handleLaserOff}/>
+        <ImageButton
+          style={styles.separator}
+          src={isLaserOn ? LaserOffIcon : LaserOnIcon }
+          hint={isLaserOn ? "Laser OFF" : "Laser ON"}
+          onPress={handleLaserOnOff}
+        />
       </Box>
 
       <Box mt={1} width={266} height={1256}>

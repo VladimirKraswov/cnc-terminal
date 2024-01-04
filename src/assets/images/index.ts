@@ -12,6 +12,12 @@ import ZAddIcon from './buttons/z-add.svg';
 import ZSubIcon from './buttons/z-sub.svg';
 import UnlockIcon from './buttons/unlock.svg';
 
+import ClearIcon from './buttons/clear.svg';
+import ConnectIcon from './buttons/connect.svg'
+import DisconnectIcon from './buttons/disconnect.svg';
+import RefreshIcon from './buttons/refresh.svg';
+import ReturnIcon from './buttons/return.svg';
+
 export {
   HomeIcon,
   LaserOffIcon,
@@ -25,5 +31,10 @@ export {
   YSubIcon,
   ZAddIcon,
   ZSubIcon,
-  UnlockIcon
+  UnlockIcon,
+  ClearIcon,
+  ConnectIcon,
+  DisconnectIcon,
+  RefreshIcon,
+  ReturnIcon,
 }

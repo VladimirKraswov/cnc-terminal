@@ -17,10 +17,11 @@ export const styles: TStyles = {
     backgroundColor: COLORS.BACKGROUND_SECONDARY,
   },
   inputCommand: {
+    marginTop: '5px',
   },
   input: {
     flex: 1,
-    height: '4rem',
+    height: '48px',
     fontSize: '24px',
     color: COLORS.FONT_MAIN,
     backgroundColor: COLORS.BACKGROUND_SECONDARY,

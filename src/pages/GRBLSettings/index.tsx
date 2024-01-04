@@ -25,6 +25,8 @@ const parseGRBLSettings = (gcode: string): IOption[] => {
 
 export const GRBLSettings = () => {
   const [settings, setSettings] = useState(SETTINGS)
+  const [terminal, setTerminal] = useState('')
+
   const {isConnected, send, portResponse, clear } = useSerial();
 
   const getSettings = async () => {
@@ -37,11 +39,6 @@ export const GRBLSettings = () => {
     setSettings((prev: IOption[]) => prev.map((opt: IOption) => opt.gcode !== option.gcode ? opt : {...opt, draft: false}))
   }
 
-  // const handleRestore = (option: IOption) => {
-  //   const tmp = JSON.parse(JSON.stringify(settings.find((opt) => opt.gcode === option.gcode)?.draft));
-  //   setSettings((prev: IOption[]) => prev.map((opt: IOption) => opt.gcode !== option.gcode ? opt : {...opt, value: tmp, draft: undefined}))
-  // }
-
   const handleChange = (field: string, value?: number) => {
     if (value) {
       setSettings((prev: IOption[]) => prev.map((opt: IOption) => opt.gcode !== field ? opt : {...opt, value, draft: true}))
@@ -53,21 +50,18 @@ export const GRBLSettings = () => {
       return null
     }
     
-    return (
-      <>
-        <MainButton style={{ height: 10, width: 100 }} text="Save" onPress={() => handleSave(option)} />
-        {/* <Box width={5} />
-        <MainButton style={{ height: 10, width: 100 }} text="Restore" onPress={() => handleRestore(option)} /> */}
-      </>
-    )
+    return <MainButton style={{ height: 10, width: 100 }} text="Save" onPress={() => handleSave(option)} />
   }
 
   useEffect(() => {
-    const newSettings = parseGRBLSettings(portResponse)
-    if (newSettings) {
-      setSettings(newSettings)
-    }
+    setTerminal((prev) => `${prev}${portResponse}`)
   }, [portResponse])
+
+  useEffect(() => {
+    if (terminal.includes('ok')) {
+      setSettings(parseGRBLSettings(terminal))
+    }
+  }, [terminal])
 
   if (!isConnected) {
     return (
