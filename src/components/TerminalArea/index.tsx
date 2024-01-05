@@ -1,7 +1,7 @@
 import { type FC, memo, useEffect, useRef, useState } from 'react'
 
 import { Box } from '@mui/system'
-import { useSerial } from '../../providers/SerialProvider'
+import { useSerial } from '../../providers/SerialProvider'; 
 
 import { styles } from './styles'
 import { ImageButton } from '..'
@@ -14,7 +14,7 @@ export const TerminalArea: FC = memo(() => {
 
   const { send, portResponse, isConnected, clear, run } = useSerial()
 
-  const handleReturn = () => {
+  const handleReturn = (): void => {
     // run(g)
     send(command)
     setCommand('')

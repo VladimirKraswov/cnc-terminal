@@ -4,10 +4,12 @@ import { JogBlock, Text } from '../../components'
 
 import { useSerial } from '../../providers/SerialProvider'
 
-import { styles } from './styles'
-import { COLORS } from '../../theme/colors'
+import { type FC } from 'react'
 
-export const Control = () => {
+import { COLORS } from '../../theme/colors'
+import { styles } from './styles'
+
+export const Control: FC = () => {
   const { isConnected } = useSerial()
 
   // if (!isConnected) {

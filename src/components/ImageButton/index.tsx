@@ -14,7 +14,7 @@ interface IImageButtonProps {
   onPress: () => void
 }
 
-export const ImageButton: FC<IImageButtonProps> = memo(({ style, imageStyle, src, alt, size = 48, hint, isDisabled, onPress }) => (
+export const ImageButton: FC<IImageButtonProps> = memo(({ style, imageStyle, src, alt, size = 48, hint, isDisabled = false, onPress }) => (
   <ButtonBase style={{ width: size, height: size, ...style }} focusRipple disabled={isDisabled} onClick={onPress} >
     <Tooltip title={hint ?? ''}>
       <img style={imageStyle} width={size} height={size} src={src} alt={alt}/>

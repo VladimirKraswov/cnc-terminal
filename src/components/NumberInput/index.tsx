@@ -12,9 +12,9 @@ interface INumberInputProps extends NumberInputProps {
   renderRightElement?: () => ReactNode | null
 }
 
-export const NumberInput = forwardRef<HTMLDivElement, INumberInputProps>(({ label, renderRightElement, ...rest }, ref) => (
+export const NumberInput = forwardRef<HTMLDivElement, INumberInputProps>(({ label = '', renderRightElement = null, ...rest }, ref) => (
     <Box width="100%" flexDirection="column">
-      {!!label && (
+      {!(label.length === 0) && (
         <Text style={{
           marginBottom: '10px',
           marginTop: '10px',
@@ -43,7 +43,7 @@ export const NumberInput = forwardRef<HTMLDivElement, INumberInputProps>(({ labe
           {...rest}
           ref={ref}
         />
-        {!!renderRightElement && (
+        {!(renderRightElement === null) && (
           <Box ml={1}>
             {renderRightElement()}
           </Box>

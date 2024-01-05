@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { type FC, type ReactNode, useEffect, useState } from 'react'
 
 import { Box } from '@mui/system'
 
@@ -24,29 +24,29 @@ const parseGRBLSettings = (gcode: string): IOption[] => {
   )
 }
 
-export const GRBLSettings = () => {
+export const GRBLSettings: FC = () => {
   const [settings, setSettings] = useState(SETTINGS)
   const [terminal, setTerminal] = useState('')
 
   const { isConnected, send, portResponse, clear } = useSerial()
 
-  const getSettings = async () => {
+  const getSettings = (): void => {
     clear()
     send('$$')
   }
 
-  const handleSave = (option: IOption) => {
+  const handleSave = (option: IOption): void => {
     send(`${option.gcode}=${option.value.toString()}`)
     setSettings((prev: IOption[]) => prev.map((opt: IOption) => opt.gcode !== option.gcode ? opt : { ...opt, draft: false }))
   }
 
-  const handleChange = (field: string, value?: number) => {
+  const handleChange = (field: string, value?: number): void => {
     if (value) {
       setSettings((prev: IOption[]) => prev.map((opt: IOption) => opt.gcode !== field ? opt : { ...opt, value, draft: true }))
     }
   }
 
-  const renderRightElement = (option: IOption) => {
+  const renderRightElement = (option: IOption): ReactNode | null => {
     if (!option.draft) {
       return null
     }

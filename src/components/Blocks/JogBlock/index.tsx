@@ -54,7 +54,7 @@ export const JogBlock: FC<IMainButtonProps> = memo(({ style }) => {
             shiftMultiplier={5}
             step={1}
             value={steep}
-            onChange={(_, value) => { setSteep(value!) }}
+            onChange={(_, value) => { setSteep(value ?? 0) }}
           />
           <NumberInput
             label="Скорость"
@@ -63,7 +63,7 @@ export const JogBlock: FC<IMainButtonProps> = memo(({ style }) => {
             shiftMultiplier={5}
             step={1}
             value={feed}
-            onChange={(_, value) => { setFeed(value!) }}
+            onChange={(_, value) => { setFeed(value ?? 0) }}
           />
           <NumberInput
             label="Мощность лазера"
@@ -72,7 +72,7 @@ export const JogBlock: FC<IMainButtonProps> = memo(({ style }) => {
             shiftMultiplier={5}
             step={1}
             value={laserPower}
-            onChange={(_, value) => { setLaserPower(value!) }}
+            onChange={(_, value) => { setLaserPower(value ?? 0) }}
           />
         </Box>
       {/* Jog */}

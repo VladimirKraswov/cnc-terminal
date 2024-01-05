@@ -30,7 +30,7 @@ const StoreProvider: FC<any> = ({ children }) => {
   )
 }
 
-const useStore = () => {
+const useStore = (): IStoreContext => {
   const context = useContext(StoreContext)
   if (context === undefined) {
     throw new Error('useStore must be used within a Provider')

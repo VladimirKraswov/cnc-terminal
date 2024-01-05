@@ -1,4 +1,4 @@
-import * as React from 'react'
+import { type FC, useState } from 'react'
 
 import Tabs from '@mui/material/Tabs'
 import Tab from '@mui/material/Tab'
@@ -13,7 +13,7 @@ interface TabPanelProps {
   value: number
 }
 
-function CustomTabPanel (props: TabPanelProps) {
+const CustomTabPanel: FC<TabPanelProps> = (props: TabPanelProps) => {
   const { children, value, index, ...other } = props
 
   return (
@@ -32,17 +32,17 @@ function CustomTabPanel (props: TabPanelProps) {
   )
 }
 
-function a11yProps (index: number) {
+const a11yProps = (index: number): any => {
   return {
     id: `simple-tab-${index}`,
     'aria-controls': `simple-tabpanel-${index}`
   }
 }
 
-export const BasicTabs = () => {
-  const [currentTab, setCurrentTab] = React.useState(0)
+export const BasicTabs: React.FC = () => {
+  const [currentTab, setCurrentTab] = useState(0)
 
-  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+  const handleChange = (event: React.SyntheticEvent, newValue: number): void => {
     setCurrentTab(newValue)
   }
 

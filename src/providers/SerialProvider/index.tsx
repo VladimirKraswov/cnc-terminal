@@ -1,11 +1,11 @@
 import { createContext, useCallback, useContext, useState, useMemo, type FC, useEffect, useRef } from 'react'
-
 import { type UnlistenFn, listen } from '@tauri-apps/api/event'
 
 import { getEnding, handleConnect, handleGetPorts, handleSend } from '../../utils/serial'
 import { REFRESH_PORTS_INTERVAL } from '../../constants'
 
-const wait = async (time: number) => await new Promise((res) => {
+// eslint-disable-next-line promise/param-names
+const wait = async (time: number): Promise<boolean> => await new Promise((res) => {
   setTimeout(() => { res(true) }, time)
 })
 
@@ -18,8 +18,8 @@ interface ISerialContext {
   isConnected: boolean
   ports: string[]
   portResponse: string
-  getPorts: () => string[]
-  connect: (port: string, baud: string, ending: string) => boolean
+  getPorts: () => void
+  connect: (port: string, baud: string, ending: string) => Promise<boolean>
   disconnect: () => void
   send: (command: string) => void
   clear: () => void
@@ -36,7 +36,7 @@ interface SerialEvent {
 
 const SerialContext = createContext<ISerialContext | undefined>(undefined)
 
-const SerialProvider: FC<any> = ({ children }) => {
+const SerialProvider: FC<any> = ({ children }): any => {
   const [ports, setPorts] = useState<string[]>([])
   const [isConnected, setIsConnected] = useState(false)
   const [portResponse, setPortResponse] = useState<string>('')
@@ -113,29 +113,26 @@ const SerialProvider: FC<any> = ({ children }) => {
   )
 
   useEffect(() => {
-    getPorts()
+    void getPorts()
     setInterval(() => {
-      getPorts()
+      void getPorts()
     }, REFRESH_PORTS_INTERVAL)
-    /* eslint-disable-next-line */
   }, [])
 
   useEffect(() => {
     if (!ports.find((p) => p === currentPortParameters?.port)) {
       disconnect()
     }
-    // es-lind-disabled-next-line
   }, [ports])
 
   return (
-    /* @ts-expect-error */
     <SerialContext.Provider value={value}>
       {children}
     </SerialContext.Provider>
   )
 }
 
-const useSerial = () => {
+const useSerial = (): ISerialContext => {
   const context = useContext(SerialContext)
   if (context === undefined) {
     throw new Error('useSerial must be used within a Provider')

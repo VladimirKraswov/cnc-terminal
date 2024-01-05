@@ -4,7 +4,7 @@ async function handleGetPorts (): Promise<string> {
   return await invoke('get_ports', {})
 }
 
-function convertEnding (ending: string) {
+const convertEnding = (ending: string): string => {
   switch (ending) {
     case 'None':
       return ''
@@ -19,15 +19,14 @@ function convertEnding (ending: string) {
   }
 }
 
-async function handleConnect (port: string, baud: string, ending: string): Promise<boolean> {
-  // eslint-disable-next-line no-param-reassign
+const handleConnect = async (port: string, baud: string, ending: string): Promise<boolean> => {
   ending = convertEnding(ending)
-  invoke('set_port_items', { port, baud, ending })
+  await invoke('set_port_items', { port, baud, ending })
   const isConnected = await invoke('handle_serial_connect', {})
   return isConnected as boolean
 }
 
-function getBaudList () {
+const getBaudList = (): string[] => {
   return [
     '300',
     '1200',
@@ -47,7 +46,7 @@ function getBaudList () {
   ]
 }
 
-function getEnding () {
+const getEnding = (): string[] => {
   return [
     'None',
     '\\n',
@@ -56,20 +55,20 @@ function getEnding () {
   ]
 }
 
-async function handleRecord (): Promise<any> {
+const handleRecord = async (): Promise<any> => {
   const res = await invoke('handle_start_record', {})
   return res
 }
 
-function handleSend (input: string) {
-  invoke('send_serial', { input })
+const handleSend = async (input: string): Promise<any> => {
+  await invoke('send_serial', { input })
 }
 
-async function handleSetFolder () {
+const handleSetFolder = async (): Promise<any> => {
   await invoke('set_folder_path', {})
 }
 
-async function sendError (input: string) {
+const sendError = async (input: string): Promise<any> => {
   await invoke('emit_error', { input })
 }
 
