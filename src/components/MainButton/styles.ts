@@ -1,11 +1,11 @@
-import { COLORS } from "../../theme/colors";
+import { COLORS } from '../../theme/colors'
 
-import { TStyles } from "../../types";
+import { type TStyles } from '../../types'
 
 export const styles: TStyles = {
   container: {
     display: 'flex',
-    backgroundColor:  COLORS.PRIMARY,
+    backgroundColor: COLORS.PRIMARY,
     color: COLORS.FONT_SECONDARY,
     borderColor: COLORS.FONT_SECONDARY,
     fontFamily: 'Consolas, monaco, monospace',
@@ -14,5 +14,5 @@ export const styles: TStyles = {
     padding: '1rem',
     justifyContent: 'center',
     alignItems: 'center'
-  },
+  }
 }

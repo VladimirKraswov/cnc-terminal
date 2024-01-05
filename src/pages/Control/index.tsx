@@ -1,14 +1,14 @@
-import { Box } from "@mui/system";
+import { Box } from '@mui/system'
 
-import {  JogBlock, Text } from "../../components";
+import { JogBlock, Text } from '../../components'
 
-import { useSerial } from "../../providers/SerialProvider";
+import { useSerial } from '../../providers/SerialProvider'
 
-import { styles } from "./styles";
-import { COLORS } from "../../theme/colors";
+import { styles } from './styles'
+import { COLORS } from '../../theme/colors'
 
 export const Control = () => {
- const {isConnected } = useSerial();
+  const { isConnected } = useSerial()
 
   // if (!isConnected) {
   //   return (
@@ -23,5 +23,5 @@ export const Control = () => {
       <Box flex={1} bgcolor={COLORS.BACKGROUND_NIGHT} />
       <JogBlock style={{ padding: 10 }} />
     </Box>
-  );
+  )
 }

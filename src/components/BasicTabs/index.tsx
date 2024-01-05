@@ -1,20 +1,20 @@
-import * as React from 'react';
+import * as React from 'react'
 
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
-import Box from '@mui/material/Box';
+import Tabs from '@mui/material/Tabs'
+import Tab from '@mui/material/Tab'
+import Box from '@mui/material/Box'
 
-import { CommandLine, Control, GRBLSettings } from '../../pages';
-import { styles } from './styles';
+import { CommandLine, Control, GRBLSettings } from '../../pages'
+import { styles } from './styles'
 
 interface TabPanelProps {
-  children?: React.ReactNode;
-  index: number;
-  value: number;
+  children?: React.ReactNode
+  index: number
+  value: number
 }
 
-function CustomTabPanel(props: TabPanelProps) {
-  const { children, value, index, ...other } = props;
+function CustomTabPanel (props: TabPanelProps) {
+  const { children, value, index, ...other } = props
 
   return (
     <div
@@ -25,26 +25,26 @@ function CustomTabPanel(props: TabPanelProps) {
       aria-labelledby={`simple-tab-${index}`}
       {...other}
     >
-      <Box display={value === index ? 'flex' : 'none'} flex={1} height={"100%"} sx={{ p: 1 }}>
+      <Box display={value === index ? 'flex' : 'none'} flex={1} height="100%" sx={{ p: 1 }}>
         {children}
       </Box>
     </div>
-  );
+  )
 }
 
-function a11yProps(index: number) {
+function a11yProps (index: number) {
   return {
     id: `simple-tab-${index}`,
-    'aria-controls': `simple-tabpanel-${index}`,
-  };
+    'aria-controls': `simple-tabpanel-${index}`
+  }
 }
 
 export const BasicTabs = () => {
-  const [currentTab, setCurrentTab] = React.useState(0);
+  const [currentTab, setCurrentTab] = React.useState(0)
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-    setCurrentTab(newValue);
-  };
+    setCurrentTab(newValue)
+  }
 
   return (
     <Box width="100vw" height="100vh" flexDirection="column">
@@ -54,7 +54,7 @@ export const BasicTabs = () => {
           onChange={handleChange}
           aria-label="basic tabs example"
           TabIndicatorProps={{
-            style: styles.tabIndicator,
+            style: styles.tabIndicator
           }}
         >
           <Tab style={styles.tabButton} label="Command Line" {...a11yProps(0)} />
@@ -72,5 +72,5 @@ export const BasicTabs = () => {
         <GRBLSettings />
       </CustomTabPanel>
     </Box>
-  );
+  )
 }

@@ -1,26 +1,25 @@
-import { FC, memo, useEffect, useRef, useState } from "react";
+import { type FC, memo, useEffect, useRef, useState } from 'react'
 
-import { Box } from "@mui/system";
-import { useSerial } from "../../providers/SerialProvider";
+import { Box } from '@mui/system'
+import { useSerial } from '../../providers/SerialProvider'
 
 import { styles } from './styles'
-import { ImageButton } from "..";
-import { ClearIcon, ReturnIcon } from "../../assets/images";
+import { ImageButton } from '..'
+import { ClearIcon, ReturnIcon } from '../../assets/images'
 
 export const TerminalArea: FC = memo(() => {
   const areaRef = useRef<HTMLTextAreaElement | null>(null)
-  const [command, setCommand] = useState('');
+  const [command, setCommand] = useState('')
   const [terminal, setTerminal] = useState('')
 
-  const {send, portResponse, isConnected, clear, run} = useSerial()
+  const { send, portResponse, isConnected, clear, run } = useSerial()
 
   const handleReturn = () => {
-
     // run(g)
-    send(command);
-    setCommand('');
+    send(command)
+    setCommand('')
   }
-  
+
   useEffect(() => {
     setTerminal((prev) => `${prev}${portResponse}`)
     areaRef?.current?.scroll({ top: areaRef?.current?.scrollHeight })
@@ -38,19 +37,19 @@ export const TerminalArea: FC = memo(() => {
         <input
           style={styles.input}
           value={command}
-          onChange={(e) => setCommand(e.currentTarget.value)}
-          placeholder="Enter a command..."    
+          onChange={(e) => { setCommand(e.currentTarget.value) }}
+          placeholder="Enter a command..."
         />
         <Box width={5} />
         <ImageButton src={ReturnIcon} hint="" isDisabled={!isConnected} onPress={handleReturn} />
         <Box width={5} />
-        <ImageButton src={ClearIcon} hint="" isDisabled={!isConnected} onPress={() => setTerminal('')} />
+        <ImageButton src={ClearIcon} hint="" isDisabled={!isConnected} onPress={() => { setTerminal('') }} />
       </Box>
     </Box>
   )
-});
+})
 
-TerminalArea.displayName = 'TerminalArea';
+TerminalArea.displayName = 'TerminalArea'
 
 const g = `
 G90

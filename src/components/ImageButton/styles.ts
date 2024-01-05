@@ -1,6 +1,6 @@
-import { TStyles } from "../../types";
+import { type TStyles } from '../../types'
 
 export const styles: TStyles = {
   container: {
-  },
+  }
 }

@@ -1,8 +1,8 @@
-import { FC } from "react";
+import { type FC } from 'react'
 
-import { Typography, TypographyProps } from "@mui/material";
+import { Typography, type TypographyProps } from '@mui/material'
 
-import {styles} from './styles'
+import { styles } from './styles'
 
 interface ITextProps extends TypographyProps {
   style?: any
@@ -10,5 +10,5 @@ interface ITextProps extends TypographyProps {
 }
 
 export const Text: FC<ITextProps> = ({ style, value, ...rest }) => (
-  <Typography style={{...styles.container, ...style}} {...rest}>{value}</Typography>
-);
+  <Typography style={{ ...styles.container, ...style }} {...rest}>{value}</Typography>
+)

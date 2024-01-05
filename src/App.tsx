@@ -1,10 +1,10 @@
-import { SerialProvider } from "./providers/SerialProvider"
+import { SerialProvider } from './providers/SerialProvider'
 
-import { StoreProvider } from "./providers/StoreProvider";
+import { StoreProvider } from './providers/StoreProvider'
 
-import { BasicTabs } from "./components";
+import { BasicTabs } from './components'
 
-import './App.css';
+import './App.css'
 
 const App = () =>
 <StoreProvider>
@@ -13,6 +13,4 @@ const App = () =>
   </SerialProvider>
 </StoreProvider>
 
-  
-
-export default App;
+export default App

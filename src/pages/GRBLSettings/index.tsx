@@ -1,33 +1,34 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react'
 
-import { Box } from "@mui/system";
+import { Box } from '@mui/system'
 
-import {  MainButton, NumberInput, Text } from "../../components";
+import { MainButton, NumberInput, Text } from '../../components'
 
-import { styles } from "./styles";
-import { useSerial } from "../../providers/SerialProvider";
-import { IOption } from "./types";
-import { SETTINGS } from "./constants";
+import { styles } from './styles'
+import { useSerial } from '../../providers/SerialProvider'
+import { type IOption } from './types'
+import { SETTINGS } from './constants'
 
 const parseGRBLSettings = (gcode: string): IOption[] => {
-  const lines = gcode.split('\n');
+  const lines = gcode.split('\n')
 
   return SETTINGS.map((option) => {
     const findLine = lines.find((line) => line.includes(option.gcode))
     if (findLine) {
-        const equalsIndex = findLine.indexOf('=');
-        const substring = findLine.substring(equalsIndex + 1);
-        return {...option, value: Number(substring.trim())}
+      const equalsIndex = findLine.indexOf('=')
+      const substring = findLine.substring(equalsIndex + 1)
+      return { ...option, value: Number(substring.trim()) }
     }
-      return option
-    }
-)}
+    return option
+  }
+  )
+}
 
 export const GRBLSettings = () => {
   const [settings, setSettings] = useState(SETTINGS)
   const [terminal, setTerminal] = useState('')
 
-  const {isConnected, send, portResponse, clear } = useSerial();
+  const { isConnected, send, portResponse, clear } = useSerial()
 
   const getSettings = async () => {
     clear()
@@ -36,12 +37,12 @@ export const GRBLSettings = () => {
 
   const handleSave = (option: IOption) => {
     send(`${option.gcode}=${option.value.toString()}`)
-    setSettings((prev: IOption[]) => prev.map((opt: IOption) => opt.gcode !== option.gcode ? opt : {...opt, draft: false}))
+    setSettings((prev: IOption[]) => prev.map((opt: IOption) => opt.gcode !== option.gcode ? opt : { ...opt, draft: false }))
   }
 
   const handleChange = (field: string, value?: number) => {
     if (value) {
-      setSettings((prev: IOption[]) => prev.map((opt: IOption) => opt.gcode !== field ? opt : {...opt, value, draft: true}))
+      setSettings((prev: IOption[]) => prev.map((opt: IOption) => opt.gcode !== field ? opt : { ...opt, value, draft: true }))
     }
   }
 
@@ -49,8 +50,8 @@ export const GRBLSettings = () => {
     if (!option.draft) {
       return null
     }
-    
-    return <MainButton style={{ height: 10, width: 100 }} text="Save" onPress={() => handleSave(option)} />
+
+    return <MainButton style={{ height: 10, width: 100 }} text="Save" onPress={() => { handleSave(option) }} />
   }
 
   useEffect(() => {
@@ -81,14 +82,14 @@ export const GRBLSettings = () => {
             label={`{${option.gcode}} ${option.label}`}
             // min={-1000}
             // max={1000}
-            shiftMultiplier={5} 
+            shiftMultiplier={5}
             step={1}
             value={option.value}
-            onChange={(_, value) => handleChange(option.gcode, value)}
+            onChange={(_, value) => { handleChange(option.gcode, value) }}
             renderRightElement={() => renderRightElement(option)}
           />
         ))}
       </Box>
     </Box>
-  );
+  )
 }

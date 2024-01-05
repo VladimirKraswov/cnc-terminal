@@ -1,6 +1,6 @@
-import {FC, memo} from "react";
+import { type FC, memo } from 'react'
 
-import  {styles} from './styles'
+import { styles } from './styles'
 
 interface IMainButtonProps {
   style?: any
@@ -8,13 +8,13 @@ interface IMainButtonProps {
   onPress: () => void
 }
 
-export const MainButton: FC<IMainButtonProps> = memo(({style, text, onPress}) => (
+export const MainButton: FC<IMainButtonProps> = memo(({ style, text, onPress }) => (
     <button
       style={{ ...styles.container, ...style }}
       onClick={onPress}
     >
       {text}
     </button>
-  ))
+))
 
-MainButton.displayName = 'MainButton';
+MainButton.displayName = 'MainButton'

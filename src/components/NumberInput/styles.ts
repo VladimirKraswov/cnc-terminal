@@ -1,20 +1,20 @@
-import {numberInputClasses} from '@mui/base/Unstable_NumberInput';
-import { styled } from '@mui/system';
+import { numberInputClasses } from '@mui/base/Unstable_NumberInput'
+import { styled } from '@mui/system'
 
-import { COLORS } from "../../theme/colors";
+import { COLORS } from '../../theme/colors'
 
-import { TStyles } from "../../types";
+import { type TStyles } from '../../types'
 
 export const styles: TStyles = {
   container: {
-    backgroundColor:  COLORS.PRIMARY,
+    backgroundColor: COLORS.PRIMARY,
     color: COLORS.FONT_MAIN,
     borderColor: COLORS.FONT_MAIN,
     fontFamily: 'Consolas, monaco, monospace',
     fontSize: '18px',
     borderRadius: '10px',
-    padding: '1rem',
-  },
+    padding: '1rem'
+  }
 }
 
 export const StyledInputRoot = styled('div')(
@@ -47,8 +47,8 @@ export const StyledInputRoot = styled('div')(
   &:focus-visible {
     outline: 0;
   }
-`,
-);
+`
+)
 
 export const StyledInputElement = styled('input')(
   ({ theme }) => `
@@ -64,8 +64,8 @@ export const StyledInputElement = styled('input')(
   border-radius: inherit;
   padding: 8px 12px;
   outline: 0;
-`,
-);
+`
+)
 
 export const StyledButton = styled('button')(
   ({ theme }) => `
@@ -138,5 +138,5 @@ export const StyledButton = styled('button')(
   & .arrow {
     transform: translateY(-1px);
   }
-`,
-);
+`
+)

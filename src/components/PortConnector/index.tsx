@@ -1,30 +1,29 @@
-import { useCallback, useState } from "react";
+import { useCallback, useState } from 'react'
 
-import {Select, MenuItem} from "@mui/material";
-import { Box } from "@mui/system";
+import { Select, MenuItem } from '@mui/material'
+import { Box } from '@mui/system'
 
-import { useSerial } from "../../providers/SerialProvider";
-import { getEnding } from "../../utils/serial";
+import { useSerial } from '../../providers/SerialProvider'
+import { getEnding } from '../../utils/serial'
 
-import { Text } from "../Text";
-import { ImageButton } from "../ImageButton";
+import { Text } from '../Text'
+import { ImageButton } from '../ImageButton'
 
-import { ConnectIcon, DisconnectIcon, RefreshIcon } from "../../assets/images";
+import { ConnectIcon, DisconnectIcon, RefreshIcon } from '../../assets/images'
 
-import { styles } from "./styles";
-
+import { styles } from './styles'
 
 export const PortConnector = () => {
   const [selectPort, setSelectPort] = useState<string | null>(null)
 
-  const {isConnected, ports, connect, disconnect, getPorts } = useSerial();
+  const { isConnected, ports, connect, disconnect, getPorts } = useSerial()
 
-  const handleChangePort =  useCallback((event: any) => {
-    setSelectPort(event.target.value);
-  }, []) 
+  const handleChangePort = useCallback((event: any) => {
+    setSelectPort(event.target.value)
+  }, [])
 
   const handleConnect = useCallback(async () => {
-    if(!selectPort) {
+    if (!selectPort) {
       return
     }
 
@@ -33,8 +32,7 @@ export const PortConnector = () => {
     } else {
       await connect(selectPort, '115200', getEnding()[1])
     }
-  }, [selectPort, connect]);
-
+  }, [selectPort, connect])
 
   return (
     <div style={styles.container}>
@@ -47,7 +45,7 @@ export const PortConnector = () => {
           selectPort ? undefined : () => <Text style={{ fontSize: 24 }} value={'Select serial port'}/>
         }
       >
-        {ports.map((port) => <MenuItem style={{ fontFamily: 'Consolas, monaco, monospace', }} key={port} value={port}>{port}</MenuItem>)}
+        {ports.map((port) => <MenuItem style={{ fontFamily: 'Consolas, monaco, monospace' }} key={port} value={port}>{port}</MenuItem>)}
       </Select>
       <Box width={5} />
       <ImageButton src={RefreshIcon} hint="" onPress={getPorts} />

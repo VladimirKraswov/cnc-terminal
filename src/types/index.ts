@@ -1,5 +1,3 @@
-import CSS from 'csstype';
+import type CSS from 'csstype'
 
-export type TStyles = {
-  [k: string]: CSS.Properties
-} 
+export type TStyles = Record<string, CSS.Properties>

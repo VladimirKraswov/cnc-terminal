@@ -19,5 +19,5 @@ export const COLORS = {
   FONT_MAIN: '#FFFAFA',
   FONT_SECONDARY: '#202020',
 
-  SUCCESS: '#32CD32',
-};
+  SUCCESS: '#32CD32'
+}

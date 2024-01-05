@@ -1,6 +1,6 @@
 export const GCODE = {
   INCREMENT_MODE: 'G91',
-  ZERO_AXIS: 'G92',
+  ZERO_AXIS: 'G92'
 }
 
 // Обнуление осей можно сделать через консоль:

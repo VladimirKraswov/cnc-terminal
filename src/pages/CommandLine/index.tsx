@@ -1,7 +1,7 @@
-import { Box } from "@mui/system";
-import { PortConnector, TerminalArea } from "../../components";
+import { Box } from '@mui/system'
+import { PortConnector, TerminalArea } from '../../components'
 
-import { styles } from "./styles";
+import { styles } from './styles'
 
 export const CommandLine = () => (
     <Box style={styles.container}>
@@ -9,4 +9,4 @@ export const CommandLine = () => (
       <Box height={5}/>
       <TerminalArea/>
     </Box>
-  )
+)

@@ -12,5 +12,5 @@
 export const REALTIME_COMMANDS = {
   SOFT_RESET: '0x18',
   CANCEL_JOG: '0x85',
-  STATUS_REPORT: '?',
+  STATUS_REPORT: '?'
 }
