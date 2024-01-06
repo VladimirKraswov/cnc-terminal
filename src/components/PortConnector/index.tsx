@@ -1,29 +1,23 @@
 import { type FC, useCallback, useState } from 'react'
-
-import { Select, MenuItem } from '@mui/material'
-import { Box } from '@mui/system'
-
+import { Select, MenuItem, Box } from '@mui/material'
 import { useSerial } from '../../providers/SerialProvider'
-import { getEnding } from '../../utils/serial'
-
+import { getEnding } from '../../providers/SerialProvider/utils/serial'
 import { Text } from '../Text'
 import { ImageButton } from '../ImageButton'
-
 import { ConnectIcon, DisconnectIcon, RefreshIcon } from '../../assets/images'
-
 import { styles } from './styles'
 
 export const PortConnector: FC = () => {
   const [selectPort, setSelectPort] = useState<string | null>(null)
 
-  const { isConnected, ports, connect, disconnect, getPorts } = useSerial()
+  const { isConnected, ports, connect, disconnect, getSerialPorts } = useSerial()
 
-  const handleChangePort = useCallback((event: any) => {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-    setSelectPort(event.target.value)
+  const handleChangePort = useCallback((event: { target: { value: string | null, name: string } }) => {
+    const selectedPort = event.target.value
+    setSelectPort(selectedPort)
   }, [])
 
-  const handleConnect = useCallback(() => {
+  const handleConnect: () => Promise<void> = useCallback(async () => {
     if (selectPort == null) {
       return
     }
@@ -31,9 +25,9 @@ export const PortConnector: FC = () => {
     if (isConnected) {
       disconnect()
     } else {
-      connect(selectPort, '115200', getEnding()[1])
+      await connect(selectPort, '115200', getEnding()[1])
     }
-  }, [selectPort, connect])
+  }, [selectPort, isConnected, connect, disconnect])
 
   return (
     <div style={styles.container}>
@@ -43,18 +37,24 @@ export const PortConnector: FC = () => {
         value={selectPort}
         onChange={handleChangePort}
         renderValue={
-          (selectPort != null) ? undefined : () => <Text style={{ fontSize: 24 }} value={'Select serial port'}/>
+          (selectPort != null) ? undefined : () => <Text style={{ fontSize: 24 }} value={'Select serial port'} />
         }
       >
-        {ports.map((port) => <MenuItem style={{ fontFamily: 'Consolas, monaco, monospace' }} key={port} value={port}>{port}</MenuItem>)}
+        {ports.map((port) => (
+          <MenuItem
+            style={{ fontFamily: 'Consolas, monaco, monospace' }}
+            key={port}
+            value={port}
+          >
+            {port}
+          </MenuItem>
+        ))}
       </Select>
-       <Box width={5} />
-      <ImageButton src={RefreshIcon} hint="" onPress={getPorts} />
+      <Box width={5} />
+      <ImageButton src={RefreshIcon} hint="" onPress={getSerialPorts} />
       <Box width={5} />
       <ImageButton src={isConnected ? DisconnectIcon : ConnectIcon} hint="" onPress={handleConnect} />
       <Box width={5} />
-
     </div>
-
   )
 }

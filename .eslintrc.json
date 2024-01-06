@@ -19,7 +19,13 @@
         "react/react-in-jsx-scope": "off",
         "@typescript-eslint/no-explicit-any": ["off"],
         "react/prop-types": "off",
-        "@typescript-eslint/strict-boolean-expressions": "off"
+        "@typescript-eslint/strict-boolean-expressions": "off",
+        "@typescript-eslint/no-misused-promises": [
+            "error",
+            {
+              "checksVoidReturn": false
+            }
+          ]
     }
 }
 

@@ -1,5 +1,3 @@
-export const REFRESH_PORTS_INTERVAL = 5000
-
 export const ROUTES = {
   MAIN: 'MAIN',
   GRBL_SETTINGS: 'GRBL_SETTINGS',
