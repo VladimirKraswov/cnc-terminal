@@ -1,4 +1,5 @@
 import { invoke } from '@tauri-apps/api/tauri'
+import { type SerialBaud } from '../constants'
 
 async function handleGetPorts (): Promise<string> {
   return await invoke('get_ports', {})
@@ -19,7 +20,7 @@ const convertEnding = (ending: string): string => {
   }
 }
 
-const handleConnect = async (port: string, baud: string, ending: string): Promise<boolean> => {
+const handleConnect = async (port: string, baud: SerialBaud, ending: string): Promise<boolean> => {
   ending = convertEnding(ending)
   await invoke('set_port_items', { port, baud, ending })
   const isConnected = await invoke('handle_serial_connect', {})

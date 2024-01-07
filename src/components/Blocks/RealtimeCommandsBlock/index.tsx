@@ -12,27 +12,27 @@ interface IMainButtonProps {
 }
 
 export const RealtimeCommandsBlock: FC<IMainButtonProps> = memo(({ style }) => {
-  const { send } = useSerial()
+  const { gcodeSend } = useSerial()
 
   const handleSoftReset = useCallback(() => {
-    send(REALTIME_COMMANDS.SOFT_RESET)
-  }, [send])
+    gcodeSend(REALTIME_COMMANDS.SOFT_RESET)
+  }, [gcodeSend])
 
   const handleKillAlarmBlock = useCallback(() => {
-    send(SYSTEM_COMMANDS.KILL_ALARM_BLOCK)
-  }, [send])
+    gcodeSend(SYSTEM_COMMANDS.KILL_ALARM_BLOCK)
+  }, [gcodeSend])
 
   const handleErasesAndRestores = useCallback(() => {
-    send(SYSTEM_COMMANDS.ERASES_AND_RESTORES)
-  }, [send])
+    gcodeSend(SYSTEM_COMMANDS.ERASES_AND_RESTORES)
+  }, [gcodeSend])
 
   const handleErasesAndZerosAllCoordinate = useCallback(() => {
-    send(SYSTEM_COMMANDS.ERASES_AND_ZEROS_ALL_COORDINATE)
-  }, [send])
+    gcodeSend(SYSTEM_COMMANDS.ERASES_AND_ZEROS_ALL_COORDINATE)
+  }, [gcodeSend])
 
   const handleClearsAndRestoresAll = useCallback(() => {
-    send(SYSTEM_COMMANDS.CLEARS_AND_RESTORES_ALL)
-  }, [send])
+    gcodeSend(SYSTEM_COMMANDS.CLEARS_AND_RESTORES_ALL)
+  }, [gcodeSend])
 
   return (
     <div style={{ ...styles.container, ...style }}>

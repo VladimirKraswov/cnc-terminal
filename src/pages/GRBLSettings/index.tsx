@@ -28,15 +28,15 @@ export const GRBLSettings: FC = () => {
   const [settings, setSettings] = useState(SETTINGS)
   const [terminal, setTerminal] = useState('')
 
-  const { isConnected, send, portResponse, clear } = useSerial()
+  const { isConnected, gcodeSend, portResponse, clearPortResponse } = useSerial()
 
   const getSettings = (): void => {
-    clear()
-    send('$$')
+    clearPortResponse()
+    gcodeSend('$$')
   }
 
   const handleSave = (option: IOption): void => {
-    send(`${option.gcode}=${option.value.toString()}`)
+    gcodeSend(`${option.gcode}=${option.value.toString()}`)
     setSettings((prev: IOption[]) => prev.map((opt: IOption) => opt.gcode !== option.gcode ? opt : { ...opt, draft: false }))
   }
 

@@ -1,3 +1,5 @@
+import { type SerialBaud } from './constants'
+
 export interface IPortParameters {
   port: string
   baud: string
@@ -9,7 +11,7 @@ export interface ISerialContext {
   ports: string[]
   portResponse: string
   getSerialPorts: () => void
-  connect: (port: string, baud: string, ending: string) => Promise<boolean>
+  connect: (port: string, baud: SerialBaud, ending: string) => Promise<boolean>
   disconnect: () => void
   gcodeSend: (command: string) => void
   clearPortResponse: () => void

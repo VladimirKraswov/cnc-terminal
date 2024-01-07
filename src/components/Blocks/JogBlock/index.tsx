@@ -23,26 +23,26 @@ export const JogBlock: FC<IMainButtonProps> = memo(({ style }) => {
   const [laserPower, setLaserPower] = useState<number>(LASER_POWER)
   const [isLaserOn, setIsLaserOn] = useState(false)
 
-  const { send } = useSerial()
+  const { gcodeSend } = useSerial()
 
   const handleControlRun = useCallback((axis: string, step: number) => () => {
-    send(GCODE.INCREMENT_MODE)
-    send(`$J=${axis}${step} F${feed}`)
-  }, [feed, send])
+    gcodeSend(GCODE.INCREMENT_MODE)
+    gcodeSend(`$J=${axis}${step} F${feed}`)
+  }, [feed, gcodeSend])
 
   const handleLaserOnOff = useCallback(() => {
     setIsLaserOn((prev) => {
       if (prev) {
-        send('S0')
-        send('G0 F0')
+        gcodeSend('S0')
+        gcodeSend('G0 F0')
       } else {
-        send(`G0 M3 S${laserPower}`)
-        send('G1 F1')
+        gcodeSend(`G0 M3 S${laserPower}`)
+        gcodeSend('G1 F1')
       }
 
       return !prev
     })
-  }, [laserPower, send])
+  }, [laserPower, gcodeSend])
 
   return (
     <Box style={{ ...styles.container, ...style }}>
@@ -78,12 +78,12 @@ export const JogBlock: FC<IMainButtonProps> = memo(({ style }) => {
       {/* Jog */}
 
       <Box mt={2} flexDirection="row">
-        <ImageButton src={UnlockIcon} hint="Unlock/Reset alarm" onPress={() => { send(SYSTEM_COMMANDS.KILL_ALARM_BLOCK) }} />
+        <ImageButton src={UnlockIcon} hint="Unlock/Reset alarm" onPress={() => { gcodeSend(SYSTEM_COMMANDS.KILL_ALARM_BLOCK) }} />
 
-        <ImageButton style={styles.separator} src={XYZeroIcon} hint="Zero axis XY" onPress={() => { send(`${GCODE.ZERO_AXIS} X0 Y0`) }}/>
-        {/* <ImageButton style={{ marginLeft: 5 }} src={UnlockIcon} onPress={() => send(`${GCODE.ZERO_AXIS} Z0`)}/> */}
-        {/* <ImageButton src={UnlockIcon} onPress={() => send(`${GCODE.ZERO_AXIS} X0 Y0 Z0`)}/> */}
-        <ImageButton style={styles.separator} src={HomeIcon} hint="Home" onPress={() => { send(SYSTEM_COMMANDS.HOME) }}/>
+        <ImageButton style={styles.separator} src={XYZeroIcon} hint="Zero axis XY" onPress={() => { gcodeSend(`${GCODE.ZERO_AXIS} X0 Y0`) }}/>
+        {/* <ImageButton style={{ marginLeft: 5 }} src={UnlockIcon} onPress={() => gcodeSend(`${GCODE.ZERO_AXIS} Z0`)}/> */}
+        {/* <ImageButton src={UnlockIcon} onPress={() => gcodeSend(`${GCODE.ZERO_AXIS} X0 Y0 Z0`)}/> */}
+        <ImageButton style={styles.separator} src={HomeIcon} hint="Home" onPress={() => { gcodeSend(SYSTEM_COMMANDS.HOME) }}/>
         <ImageButton
           style={styles.separator}
           src={isLaserOn ? LaserOffIcon : LaserOnIcon }
@@ -94,7 +94,7 @@ export const JogBlock: FC<IMainButtonProps> = memo(({ style }) => {
 
       <Box mt={1} width={266} height={1256}>
         <ImageButton style={{ position: 'relative', top: 0, left: 48 }} src={YAddIcon} onPress={handleControlRun('Y', steep)} />
-        <ImageButton style={{ position: 'relative', top: 52 }}src={StopIcon} hint="Stop" onPress={() => { send(REALTIME_COMMANDS.CANCEL_JOG) }} />
+        <ImageButton style={{ position: 'relative', top: 52 }}src={StopIcon} hint="Stop" onPress={() => { gcodeSend(REALTIME_COMMANDS.CANCEL_JOG) }} />
         <ImageButton style={{ position: 'relative', top: 104, left: -48 }} src={YSubIcon} onPress={handleControlRun('Y', -steep)} />
 
         <ImageButton style={{ position: 'relative', top: 52, left: -44 }} src={XAddIcon} onPress={handleControlRun('X', steep)} />
