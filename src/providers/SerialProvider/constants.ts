@@ -1,5 +1,5 @@
-export const GRBL_BUFFER_SIZE = 127
 export const RESERVE = 7
+export const GRBL_BUFFER_SIZE = 127 - RESERVE
 export const REFRESH_PORTS_INTERVAL = 5000
 
 export enum MachineStates {

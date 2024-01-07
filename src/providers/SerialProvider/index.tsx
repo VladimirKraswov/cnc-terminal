@@ -57,7 +57,7 @@ const SerialProvider: FC<any> = ({ children }): any => {
   const gcodeSend = useCallback(async (cmd: string): Promise<string> => {
     portResponseRef.current = ''
     await handleSend(cmd)
-    await wait(100)
+    await wait(10)
     return portResponseRef.current
   }, [])
 
@@ -74,7 +74,7 @@ const SerialProvider: FC<any> = ({ children }): any => {
       if (isState(status, MachineStates.Idle)) {
         return
       }
-      await wait(500)
+      await wait(100)
     }
   }, [isConnected, gcodeSend])
 
@@ -86,7 +86,6 @@ const SerialProvider: FC<any> = ({ children }): any => {
       }
       const bufferLine = buffer[i]
       const res = await gcodeSend(bufferLine)
-      await wait(100)
       if (isState(res, JobStates.Error)) {
         return
       }
@@ -144,7 +143,7 @@ const SerialProvider: FC<any> = ({ children }): any => {
     if (!ports.find((p) => p === currentPortParameters?.port)) {
       disconnect()
     }
-  }, [ports])
+  }, [ports, currentPortParameters])
 
   return (
     <SerialContext.Provider value={value}>

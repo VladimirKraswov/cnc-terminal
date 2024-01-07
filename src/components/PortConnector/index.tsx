@@ -6,6 +6,7 @@ import { Text } from '../Text'
 import { ImageButton } from '../ImageButton'
 import { ConnectIcon, DisconnectIcon, RefreshIcon } from '../../assets/images'
 import { styles } from './styles'
+import { SerialBaud } from '../../providers/SerialProvider/constants'
 
 export const PortConnector: FC = () => {
   const [selectPort, setSelectPort] = useState<string | null>(null)
@@ -25,7 +26,7 @@ export const PortConnector: FC = () => {
     if (isConnected) {
       disconnect()
     } else {
-      await connect(selectPort, '115200', getEnding()[1])
+      await connect(selectPort, SerialBaud.Default, getEnding()[1])
     }
   }, [selectPort, isConnected, connect, disconnect])
 
